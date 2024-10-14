@@ -14,15 +14,31 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
+        backgroundColor:
+            context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
         centerTitle: true,
         title: Text(
-          "Cash Out Request",
+          "Users List",
           style: TextStyle(
             color: context.theme.colorScheme.onSurface,
           ),
         ),
-        backgroundColor:
-            context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
+        actions: [
+          MaterialButton(
+            onPressed: () =>homeController.onCashOutClick(),
+            minWidth: 0,
+            padding: const EdgeInsets.only(right: 20),
+            visualDensity: VisualDensity.compact,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            child: Icon(
+              Icons.currency_rupee_rounded,
+              size: 28,
+              color: context.theme.colorScheme.onSurface,
+            ),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -32,37 +48,24 @@ class HomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextComponent(
-                  text: "Name",
+                  text: "Telegram Id",
+                  isColor: true,
+                  width: 120,
+                ),
+                TextComponent(text: "Name", isColor: false, width: 250),
+                TextComponent(
+                  text: "Earned Amount",
                   isColor: true,
                   width: 250,
                 ),
                 TextComponent(
                   text: "Referral",
                   isColor: false,
-                  width: 80,
-                ),
-                TextComponent(
-                  text: "Acc. Holder Name",
-                  isColor: true,
-                  width: 250,
-                ),
-                TextComponent(
-                  text: "Phone No.",
-                  isColor: false,
-                ),
-                TextComponent(
-                  text: "UPI ID",
-                  isColor: true,
-                  width: 250,
-                ),
-                TextComponent(
-                  text: "Amount",
-                  isColor: false,
                 ),
                 TextComponent(
                   text: "Status",
-                  isColor: false,
-                  width: 90,
+                  isColor: true,
+                  width: 80,
                 ),
               ],
             ),
@@ -70,57 +73,42 @@ class HomeView extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => ListView.separated(
-                  itemCount: homeController.cashOutDataList.length,
+                  itemCount: homeController.userDataList.length,
                   separatorBuilder: (context, index) => Divider(
                       height: 20,
-                      color: context.theme.colorScheme.onSurface
-                          .withOpacity(0.15)),
+                      color: context.theme.colorScheme.onSurface.withOpacity(0.15),
+                  ),
                   itemBuilder: (context, index) => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextComponent(
-                        text: homeController
-                                .cashOutDataList[index].userId?.firstName ??
-                            "",
+                        text:
+                            homeController.userDataList[index].telegramId ?? "",
+                        isColor: true,
+                        width: 120,
+                      ),
+                      TextComponent(
+                          text: homeController.userDataList[index].firstName ??
+                              "",
+                          isColor: false,
+                          width: 250),
+                      TextComponent(
+                        text: homeController.userDataList[index].earnedAmount
+                            .toString(),
                         isColor: true,
                         width: 250,
                       ),
-                      TextButtonComponent(
-                        text: homeController.cashOutDataList[index].userId?.referralCount.toString() ?? "",
+                      TextComponent(
+                        text: homeController.userDataList[index].referralCount
+                            .toString(),
                         isColor: false,
+                      ),
+                      TextComponent(
+                        text: homeController.userDataList[index].status ?? false
+                            ? "Active"
+                            : "Inactive",
+                        isColor: true,
                         width: 80,
-                        onClick: ()=>homeController.onReferralClick(homeController.cashOutDataList[index].userId?.id ?? ""),
-                      ),
-                      TextComponent(
-                        text: homeController.cashOutDataList[index].userId
-                                ?.accountHolderName ??
-                            "",
-                        isColor: true,
-                        width: 250,
-                      ),
-                      TextComponent(
-                        text: homeController
-                                .cashOutDataList[index].userId?.phoneNumber ??
-                            "",
-                        isColor: false,
-                      ),
-                      TextComponent(
-                        text: homeController
-                                .cashOutDataList[index].userId?.upiId ??
-                            "",
-                        isColor: true,
-                        width: 250,
-                      ),
-                      TextComponent(
-                        text: homeController.cashOutDataList[index].amount
-                                .toString(),
-                        isColor: false,
-                      ),
-                      TextButtonComponent(
-                        text: homeController.cashOutDataList[index].status==1 ? "Pending" : homeController.cashOutDataList[index].status==2 ? "Success" : homeController.cashOutDataList[index].status==3 ? "Rejected" : "",
-                        isColor: false,
-                        width: 90,
-                        onClick: ()=>homeController.onStatusClick(homeController.cashOutDataList[index].id??""),
                       ),
                     ],
                   ),
@@ -128,49 +116,6 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class TextButtonComponent extends StatelessWidget {
-  const TextButtonComponent({
-    super.key,
-    required this.text,
-    required this.isColor,
-    this.width = 160, required this.onClick,
-  });
-
-  final String text;
-  final bool isColor;
-  final double width;
-  final Function onClick;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: ()=> onClick(),
-      minWidth: 0,
-      padding: EdgeInsets.zero,
-      visualDensity: VisualDensity.compact,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      child: Container(
-        width: width,
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        color: false
-            ? context.theme.colorScheme.onSurface.withOpacity(0.25)
-            : Colors.transparent,
-        child: Text(
-          text,
-          maxLines: 4,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: context.theme.colorScheme.onSurface,
-          ),
         ),
       ),
     );
