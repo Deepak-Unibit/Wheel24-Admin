@@ -85,7 +85,6 @@ class UserData {
       num? spinCount, 
       num? referralSpins, 
       String? referralCode, 
-      String? referredBy, 
       List<String>? referrals, 
       num? referralCount, 
       num? referralCountDue, 
@@ -93,7 +92,10 @@ class UserData {
       num? cashOutCount, 
       num? payOutCount, 
       String? createdAt, 
-      String? updatedAt,}){
+      String? updatedAt, 
+      String? accountHolderName, 
+      String? phoneNumber, 
+      String? upiId,}){
     _id = id;
     _telegramId = telegramId;
     _firstName = firstName;
@@ -104,7 +106,6 @@ class UserData {
     _spinCount = spinCount;
     _referralSpins = referralSpins;
     _referralCode = referralCode;
-    _referredBy = referredBy;
     _referrals = referrals;
     _referralCount = referralCount;
     _referralCountDue = referralCountDue;
@@ -113,6 +114,9 @@ class UserData {
     _payOutCount = payOutCount;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
+    _accountHolderName = accountHolderName;
+    _phoneNumber = phoneNumber;
+    _upiId = upiId;
 }
 
   UserData.fromJson(dynamic json) {
@@ -126,7 +130,6 @@ class UserData {
     _spinCount = json['spinCount'];
     _referralSpins = json['referralSpins'];
     _referralCode = json['referralCode'];
-    _referredBy = json['referredBy'];
     _referrals = json['referrals'] != null ? json['referrals'].cast<String>() : [];
     _referralCount = json['referralCount'];
     _referralCountDue = json['referralCountDue'];
@@ -135,6 +138,9 @@ class UserData {
     _payOutCount = json['payOutCount'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
+    _accountHolderName = json['accountHolderName'];
+    _phoneNumber = json['phoneNumber'];
+    _upiId = json['upiId'];
   }
   String? _id;
   String? _telegramId;
@@ -146,7 +152,6 @@ class UserData {
   num? _spinCount;
   num? _referralSpins;
   String? _referralCode;
-  String? _referredBy;
   List<String>? _referrals;
   num? _referralCount;
   num? _referralCountDue;
@@ -155,6 +160,9 @@ class UserData {
   num? _payOutCount;
   String? _createdAt;
   String? _updatedAt;
+  String? _accountHolderName;
+  String? _phoneNumber;
+  String? _upiId;
 
   String? get id => _id;
   String? get telegramId => _telegramId;
@@ -166,7 +174,6 @@ class UserData {
   num? get spinCount => _spinCount;
   num? get referralSpins => _referralSpins;
   String? get referralCode => _referralCode;
-  String? get referredBy => _referredBy;
   List<String>? get referrals => _referrals;
   num? get referralCount => _referralCount;
   num? get referralCountDue => _referralCountDue;
@@ -175,6 +182,9 @@ class UserData {
   num? get payOutCount => _payOutCount;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
+  String? get accountHolderName => _accountHolderName;
+  String? get phoneNumber => _phoneNumber;
+  String? get upiId => _upiId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -188,7 +198,6 @@ class UserData {
     map['spinCount'] = _spinCount;
     map['referralSpins'] = _referralSpins;
     map['referralCode'] = _referralCode;
-    map['referredBy'] = _referredBy;
     map['referrals'] = _referrals;
     map['referralCount'] = _referralCount;
     map['referralCountDue'] = _referralCountDue;
@@ -197,6 +206,9 @@ class UserData {
     map['payOutCount'] = _payOutCount;
     map['createdAt'] = _createdAt;
     map['updatedAt'] = _updatedAt;
+    map['accountHolderName'] = _accountHolderName;
+    map['phoneNumber'] = _phoneNumber;
+    map['upiId'] = _upiId;
     return map;
   }
 
