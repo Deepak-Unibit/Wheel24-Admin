@@ -99,7 +99,7 @@ class HomeView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 40,
-                  width: 320,
+                  width: Get.width<=360 ? 200 : 320,
                   child: TextFieldComponent(
                     textEditingController: homeController.searchController,
                     hintText: "Search with Telegram Id/Phone No.",
@@ -107,119 +107,131 @@ class HomeView extends StatelessWidget {
                     maxLength: 100,
                   ),
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(width: 10),
                 PrimaryButtonComponent(
                   onClick: () => homeController.onSearch(),
                   text: "Search",
                   height: 40,
-                  width: 90,
+                  width: Get.width<=360 ? 65 : 90,
                   fontSize: 16,
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextComponent(
-                  text: "Sl. No.",
-                  isHeading: true,
-                  width: 100,
-                ),
-                TextComponent(
-                  text: "Name",
-                  isHeading: true,
-                  width: 200,
-                ),
-                TextComponent(
-                  text: "Telegram Id",
-                  isHeading: true,
-                  width: 120,
-                ),
-                TextComponent(
-                  text: "Phone No.",
-                  isHeading: true,
-                  width: 120,
-                ),
-                TextComponent(
-                  text: "Earned Amount",
-                  isHeading: true,
-                  width: 250,
-                ),
-                TextComponent(
-                  text: "Referral",
-                  isHeading: true,
-                ),
-                TextComponent(
-                  text: "Status",
-                  isHeading: true,
-                  width: 80,
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Obx(
-                () => homeController.userDataList.isEmpty
-                    ? const Center(
-                        child: Text("No Data Found"),
-                      )
-                    : ListView.separated(
-                        itemCount: homeController.userDataList.length,
-                        separatorBuilder: (context, index) => Divider(
-                          height: 20,
-                          color: context.theme.colorScheme.onSurface
-                              .withOpacity(0.15),
+            Expanded(child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: 1200,
+                child: Column(
+                  children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextComponent(
+                          text: "Sl. No.",
+                          isHeading: true,
+                          width: 100,
                         ),
-                        itemBuilder: (context, index) => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextComponent(
-                              text:
-                                  "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
-                              width: 100,
-                            ),
-                            TextComponent(
-                              text: homeController
-                                      .userDataList[index].firstName ??
-                                  "",
-                              width: 200,
-                            ),
-                            TextComponent(
-                              text: homeController
-                                      .userDataList[index].telegramId ??
-                                  "",
-                              width: 120,
-                            ),
-                            TextComponent(
-                              text: homeController
-                                      .userDataList[index].phoneNumber ??
-                                  "--",
-                              width: 120,
-                            ),
-                            TextComponent(
-                              text: homeController
-                                  .userDataList[index].earnedAmount
-                                  .toString(),
-                              width: 250,
-                            ),
-                            TextComponent(
-                              text: homeController
-                                  .userDataList[index].referralCount
-                                  .toString(),
-                            ),
-                            TextComponent(
-                              text: homeController.userDataList[index].status ??
-                                      false
-                                  ? "Active"
-                                  : "Inactive",
-                              width: 80,
-                            ),
-                          ],
+                        TextComponent(
+                          text: "Name",
+                          isHeading: true,
+                          width: 200,
+                        ),
+                        TextComponent(
+                          text: "Telegram Id",
+                          isHeading: true,
+                          width: 120,
+                        ),
+                        TextComponent(
+                          text: "Phone No.",
+                          isHeading: true,
+                          width: 120,
+                        ),
+                        TextComponent(
+                          text: "Earned Amount",
+                          isHeading: true,
+                          width: 250,
+                        ),
+                        TextComponent(
+                          text: "Referral",
+                          isHeading: true,
+                        ),
+                        TextComponent(
+                          text: "Status",
+                          isHeading: true,
+                          width: 80,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: Obx(
+                            () => homeController.userDataList.isEmpty
+                            ? const Center(
+                          child: Text("No Data Found"),
+                        )
+                            : ListView.separated(
+                          itemCount: homeController.userDataList.length,
+                          separatorBuilder: (context, index) => Divider(
+                            height: 20,
+                            color: context.theme.colorScheme.onSurface
+                                .withOpacity(0.15),
+                          ),
+                          itemBuilder: (context, index) => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextComponent(
+                                text:
+                                "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
+                                width: 100,
+                              ),
+                              TextComponent(
+                                text: homeController
+                                    .userDataList[index].firstName ??
+                                    "",
+                                width: 200,
+                              ),
+                              TextComponent(
+                                text: homeController
+                                    .userDataList[index].telegramId ??
+                                    "",
+                                width: 120,
+                              ),
+                              TextComponent(
+                                text: homeController
+                                    .userDataList[index].phoneNumber ??
+                                    "--",
+                                width: 120,
+                              ),
+                              TextComponent(
+                                text: homeController
+                                    .userDataList[index].earnedAmount
+                                    .toString(),
+                                width: 250,
+                              ),
+                              TextComponent(
+                                text: homeController
+                                    .userDataList[index].referralCount
+                                    .toString(),
+                              ),
+                              TextComponent(
+                                text: homeController.userDataList[index].status ??
+                                    false
+                                    ? "Active"
+                                    : "Inactive",
+                                width: 80,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
               ),
             ),
+            ),
+
             const SizedBox(height: 10),
             Obx(
               () => WebPagination(
