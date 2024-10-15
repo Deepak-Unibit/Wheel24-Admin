@@ -11,7 +11,7 @@ class ReferralsController extends GetxController {
   String id = "";
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
-  int limit = 10;
+  int limit = 20;
 
   init(String id) {
     this.id = id;

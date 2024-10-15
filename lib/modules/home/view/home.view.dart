@@ -30,17 +30,34 @@ class HomeView extends StatelessWidget {
           MaterialButton(
             onPressed: () => homeController.onCashOutClick(),
             minWidth: 0,
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             visualDensity: VisualDensity.compact,
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            child: Icon(
-              Icons.account_balance_wallet_outlined,
-              size: 28,
-              color: context.theme.colorScheme.onSurface,
+            color: context.theme.colorScheme.surface.withOpacity(0.25),
+            shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
+              side: BorderSide(color: context.theme.colorScheme.surfaceContainerLow, width: 2,)
             ),
-          )
+            child: Row(
+              children: [
+                Icon(
+                  Icons.account_balance_wallet_outlined,
+                  size: 24,
+                  color: context.theme.colorScheme.onSurface,
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  "Cash Out",
+                  style: TextStyle(
+                    color: context.theme.colorScheme.onSurface,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 20)
         ],
       ),
       body: Padding(
@@ -74,6 +91,11 @@ class HomeView extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                TextComponent(
+                  text: "Sl. No.",
+                  isHeading: true,
+                  width: 50,
+                ),
                 TextComponent(
                   text: "Name",
                   isHeading: true,
@@ -123,9 +145,11 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextComponent(
-                              text: homeController
-                                  .userDataList[index].firstName ??
-                                  "",
+                                text: "${index+1}",
+                                width: 50,
+                              ),
+                            TextComponent(
+                              text: homeController.userDataList[index].firstName ?? "",
                               width: 200,
                             ),
                             TextComponent(

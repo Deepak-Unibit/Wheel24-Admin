@@ -16,7 +16,7 @@ class CashOutController extends GetxController {
   RxList<CashOutData> cashOutDataList = <CashOutData>[].obs;
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
-  int limit = 5;
+  int limit = 20;
 
   CashOutController() {
     Future.delayed(200.milliseconds, () {
@@ -76,10 +76,8 @@ class CashOutController extends GetxController {
       return;
     }
     LoadingPage.show();
-    var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=1&limit=10");
+    var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=1&limit=20");
     LoadingPage.close();
-
-    print(resp);
 
     ReferralsModel referralsModel = ReferralsModel.fromJson(resp);
 
@@ -199,7 +197,6 @@ class CashOutController extends GetxController {
     var resp = await ApiCall.get("${UrlApi.updateCashOutRequest}/$id/$status");
     LoadingPage.close();
 
-    print(resp);
     Get.back();
     ResponseModel responseModel = ResponseModel.fromJson(resp);
 

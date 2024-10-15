@@ -12,7 +12,7 @@ class HomeController extends GetxController {
   RxList<UserData> userDataList = <UserData>[].obs;
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
-  int limit = 5;
+  int limit = 20;
 
   HomeController() {
     Future.delayed(200.milliseconds, () => getUserData());
@@ -52,8 +52,6 @@ class HomeController extends GetxController {
     LoadingPage.show();
     var resp = await ApiCall.get(url);
     LoadingPage.close();
-
-    print("${UrlApi.getUsers}?page=${currentPage.value}&limit=$limit");
 
     UserModel userModel = UserModel.fromJson(resp);
 
