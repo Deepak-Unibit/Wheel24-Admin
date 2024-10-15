@@ -85,6 +85,11 @@ class HomeView extends StatelessWidget {
                   width: 120,
                 ),
                 TextComponent(
+                  text: "Phone No.",
+                  isHeading: true,
+                  width: 120,
+                ),
+                TextComponent(
                   text: "Earned Amount",
                   isHeading: true,
                   width: 250,
@@ -127,6 +132,10 @@ class HomeView extends StatelessWidget {
                               text: homeController
                                       .userDataList[index].telegramId ??
                                   "",
+                              width: 120,
+                            ),
+                            TextComponent(
+                              text: homeController.userDataList[index].phoneNumber ?? "--",
                               width: 120,
                             ),
                             TextComponent(
