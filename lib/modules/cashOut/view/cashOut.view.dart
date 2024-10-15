@@ -35,7 +35,7 @@ class CashOutView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 40,
-                  width: 320,
+                  width: Get.width <= 360 ? 200 : 320,
                   child: TextFieldComponent(
                     textEditingController: cashOutController.searchController,
                     hintText: "Search with Telegram Id/Phone No.",
@@ -43,135 +43,148 @@ class CashOutView extends StatelessWidget {
                     maxLength: 100,
                   ),
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(width: 10),
                 PrimaryButtonComponent(
                   onClick: ()=>cashOutController.onSearch(),
                   text: "Search",
                   height: 40,
-                  width: 90,
+                  width: Get.width <= 360 ? 65 : 90,
                   fontSize: 16,
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextComponent(
-                  text: "Sl. No.",
-                  isHeading: true,
-                  width: 100,
-                ),
-                TextComponent(
-                  text: "Name",
-                  isHeading: true,
-                  width: 200,
-                ),
-                TextComponent(
-                  text: "Telegram Id",
-                  isHeading: true,
-                  width: 120,
-                ),
-                TextComponent(
-                  text: "Referral",
-                  isHeading: true,
-                  width: 80,
-                ),
-                TextComponent(
-                  text: "Acc. Holder Name",
-                  isHeading: true,
-                  width: 250,
-                ),
-                TextComponent(
-                  text: "Phone No.",
-                  isHeading: true,
-                ),
-                TextComponent(
-                  text: "UPI ID",
-                  isHeading: true,
-                  width: 250,
-                ),
-                TextComponent(
-                  text: "Amount",
-                  isHeading: true,
-                ),
-                TextComponent(
-                  text: "Status",
-                  isHeading: true,
-                  width: 90,
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
+
             Expanded(
-              child: Obx(
-                () => cashOutController.cashOutDataList.isEmpty ? const Center(child: Text("No Data Found"),)
-                : ListView.separated(
-                  itemCount: cashOutController.cashOutDataList.length,
-                  separatorBuilder: (context, index) => Divider(
-                      height: 20,
-                      color: context.theme.colorScheme.onSurface
-                          .withOpacity(0.15)),
-                  itemBuilder: (context, index) => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: 1800,
+                  child: Column(
                     children: [
-                      TextComponent(
-                        text: "${(cashOutController.totalCount.value - ((cashOutController.currentPage.value-1)*20))-index}",
-                        width: 100,
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextComponent(
+                            text: "Sl. No.",
+                            isHeading: true,
+                            width: 100,
+                          ),
+                          TextComponent(
+                            text: "Name",
+                            isHeading: true,
+                            width: 200,
+                          ),
+                          TextComponent(
+                            text: "Telegram Id",
+                            isHeading: true,
+                            width: 120,
+                          ),
+                          TextComponent(
+                            text: "Referral",
+                            isHeading: true,
+                            width: 80,
+                          ),
+                          TextComponent(
+                            text: "Acc. Holder Name",
+                            isHeading: true,
+                            width: 250,
+                          ),
+                          TextComponent(
+                            text: "Phone No.",
+                            isHeading: true,
+                          ),
+                          TextComponent(
+                            text: "UPI ID",
+                            isHeading: true,
+                            width: 250,
+                          ),
+                          TextComponent(
+                            text: "Amount",
+                            isHeading: true,
+                          ),
+                          TextComponent(
+                            text: "Status",
+                            isHeading: true,
+                            width: 90,
+                          ),
+                        ],
                       ),
-                      TextComponent(
-                        text: cashOutController
-                                .cashOutDataList[index].firstName ??
-                            "",
-                        width: 200,
-                      ),
-                      TextComponent(
-                        text: cashOutController
-                            .cashOutDataList[index].telegramId ??
-                            "",
-                        width: 120,
-                      ),
-                      TextButtonComponent(
-                        text: cashOutController.cashOutDataList[index].referralCount.toString(),
-                        width: 80,
-                        onClick: () => cashOutController.onReferralClick(cashOutController.cashOutDataList[index].userId ?? "", cashOutController.cashOutDataList[index].referralCount ?? 0),
-                      ),
-                      TextComponent(
-                        text: cashOutController.cashOutDataList[index].accountHolderName ?? "--",
-                        width: 250,
-                      ),
-                      TextComponent(
-                        text: cashOutController.cashOutDataList[index].phoneNumber ?? "--",
-                      ),
-                      TextComponent(
-                        text: cashOutController.cashOutDataList[index].upiId ?? "--",
-                        width: 250,
-                      ),
-                      TextComponent(
-                        text: cashOutController.cashOutDataList[index].amount
-                            .toString(),
-                      ),
-                      TextButtonComponent(
-                        text: cashOutController.cashOutDataList[index].status ==
-                                1
-                            ? "Pending"
-                            : cashOutController.cashOutDataList[index].status ==
-                                    2
-                                ? "Success"
-                                : cashOutController
-                                            .cashOutDataList[index].status ==
-                                        3
-                                    ? "Rejected"
-                                    : "",
-                        width: 90,
-                        onClick: () => cashOutController.onStatusClick(
-                            cashOutController.cashOutDataList[index].id ?? ""),
-                        isSuccess: cashOutController.cashOutDataList[index].status ==
-                            2,
-                        isRejected: cashOutController
-                            .cashOutDataList[index].status ==
-                            3,
-                        isPending: cashOutController.cashOutDataList[index].status == 1,
+                      const SizedBox(height: 20),
+                      Expanded(
+                        child: Obx(
+                              () => cashOutController.cashOutDataList.isEmpty ? const Center(child: Text("No Data Found"),)
+                              : ListView.separated(
+                            itemCount: cashOutController.cashOutDataList.length,
+                            separatorBuilder: (context, index) => Divider(
+                                height: 20,
+                                color: context.theme.colorScheme.onSurface
+                                    .withOpacity(0.15)),
+                            itemBuilder: (context, index) => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TextComponent(
+                                  text: "${(cashOutController.totalCount.value - ((cashOutController.currentPage.value-1)*20))-index}",
+                                  width: 100,
+                                ),
+                                TextComponent(
+                                  text: cashOutController
+                                      .cashOutDataList[index].firstName ??
+                                      "",
+                                  width: 200,
+                                ),
+                                TextComponent(
+                                  text: cashOutController
+                                      .cashOutDataList[index].telegramId ??
+                                      "",
+                                  width: 120,
+                                ),
+                                TextButtonComponent(
+                                  text: cashOutController.cashOutDataList[index].referralCount.toString(),
+                                  width: 80,
+                                  onClick: () => cashOutController.onReferralClick(cashOutController.cashOutDataList[index].userId ?? "", cashOutController.cashOutDataList[index].referralCount ?? 0),
+                                ),
+                                TextComponent(
+                                  text: cashOutController.cashOutDataList[index].accountHolderName ?? "--",
+                                  width: 250,
+                                ),
+                                TextComponent(
+                                  text: cashOutController.cashOutDataList[index].phoneNumber ?? "--",
+                                ),
+                                TextComponent(
+                                  text: cashOutController.cashOutDataList[index].upiId ?? "--",
+                                  width: 250,
+                                ),
+                                TextComponent(
+                                  text: cashOutController.cashOutDataList[index].amount
+                                      .toString(),
+                                ),
+                                TextButtonComponent(
+                                  text: cashOutController.cashOutDataList[index].status ==
+                                      1
+                                      ? "Pending"
+                                      : cashOutController.cashOutDataList[index].status ==
+                                      2
+                                      ? "Success"
+                                      : cashOutController
+                                      .cashOutDataList[index].status ==
+                                      3
+                                      ? "Rejected"
+                                      : "",
+                                  width: 90,
+                                  onClick: () => cashOutController.onStatusClick(
+                                      cashOutController.cashOutDataList[index].id ?? ""),
+                                  isSuccess: cashOutController.cashOutDataList[index].status ==
+                                      2,
+                                  isRejected: cashOutController
+                                      .cashOutDataList[index].status ==
+                                      3,
+                                  isPending: cashOutController.cashOutDataList[index].status == 1,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -179,11 +192,14 @@ class CashOutView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Obx(
-                ()=> WebPagination(
-                onPageChanged: (value) => cashOutController.onPageChanged(value),
-                currentPage: cashOutController.currentPage.value,
-                totalPage: cashOutController.totalPages.value,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Obx(
+                  ()=> WebPagination(
+                  onPageChanged: (value) => cashOutController.onPageChanged(value),
+                  currentPage: cashOutController.currentPage.value,
+                  totalPage: cashOutController.totalPages.value,
+                ),
               ),
             ),
           ],
