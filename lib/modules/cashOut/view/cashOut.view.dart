@@ -14,7 +14,8 @@ class CashOutView extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
+        backgroundColor:
+            context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
@@ -86,10 +87,16 @@ class CashOutView extends StatelessWidget {
                         width: 250,
                       ),
                       TextButtonComponent(
-                        text: cashOutController.cashOutDataList[index].userId?.referralCount.toString() ?? "",
+                        text: cashOutController
+                                .cashOutDataList[index].userId?.referralCount
+                                .toString() ??
+                            "",
                         isColor: false,
                         width: 80,
-                        onClick: ()=>cashOutController.onReferralClick(cashOutController.cashOutDataList[index].userId?.id ?? ""),
+                        onClick: () => cashOutController.onReferralClick(
+                            cashOutController
+                                    .cashOutDataList[index].userId?.id ??
+                                ""),
                       ),
                       TextComponent(
                         text: cashOutController.cashOutDataList[index].userId
@@ -113,14 +120,25 @@ class CashOutView extends StatelessWidget {
                       ),
                       TextComponent(
                         text: cashOutController.cashOutDataList[index].amount
-                                .toString(),
+                            .toString(),
                         isColor: false,
                       ),
                       TextButtonComponent(
-                        text: cashOutController.cashOutDataList[index].status==1 ? "Pending" : cashOutController.cashOutDataList[index].status==2 ? "Success" : cashOutController.cashOutDataList[index].status==3 ? "Rejected" : "",
+                        text: cashOutController.cashOutDataList[index].status ==
+                                1
+                            ? "Pending"
+                            : cashOutController.cashOutDataList[index].status ==
+                                    2
+                                ? "Success"
+                                : cashOutController
+                                            .cashOutDataList[index].status ==
+                                        3
+                                    ? "Rejected"
+                                    : "",
                         isColor: false,
                         width: 90,
-                        onClick: ()=>cashOutController.onStatusClick(cashOutController.cashOutDataList[index].id??""),
+                        onClick: () => cashOutController.onStatusClick(
+                            cashOutController.cashOutDataList[index].id ?? ""),
                       ),
                     ],
                   ),
@@ -139,7 +157,8 @@ class TextButtonComponent extends StatelessWidget {
     super.key,
     required this.text,
     required this.isColor,
-    this.width = 160, required this.onClick,
+    this.width = 160,
+    required this.onClick,
   });
 
   final String text;
@@ -150,7 +169,7 @@ class TextButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: ()=> onClick(),
+      onPressed: () => onClick(),
       minWidth: 0,
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
