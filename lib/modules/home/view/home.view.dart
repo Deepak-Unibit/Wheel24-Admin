@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
@@ -37,9 +38,11 @@ class HomeView extends StatelessWidget {
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             color: context.theme.colorScheme.surface.withOpacity(0.25),
             shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(100)),
-              side: BorderSide(color: context.theme.colorScheme.surfaceContainerLow, width: 2,)
-            ),
+                borderRadius: const BorderRadius.all(Radius.circular(100)),
+                side: BorderSide(
+                  color: context.theme.colorScheme.surfaceContainerLow,
+                  width: 2,
+                )),
             child: Row(
               children: [
                 Icon(
@@ -57,7 +60,34 @@ class HomeView extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 20)
+          const SizedBox(width: 20),
+          Text(
+            "Restrict IP",
+            style: TextStyle(
+              color: context.theme.colorScheme.onSurface,
+            ),
+          ),
+          const SizedBox(width: 5),
+          SizedBox(
+            height: 30,
+            width: 45,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Obx(
+                ()=> Switch(
+                  value: homeController.isIPRestrict.value,
+                  onChanged: (bool value) => homeController.onIPRestrictChange(value),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  splashRadius: 0,
+                  focusColor: Colors.transparent,
+                  trackOutlineColor: WidgetStatePropertyAll(context.theme.colorScheme.onSurface.withOpacity(0.5)),
+                  trackOutlineWidth: const WidgetStatePropertyAll(1),
+                  thumbColor: WidgetStatePropertyAll(context.theme.colorScheme.onSurface),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 20),
         ],
       ),
       body: Padding(
@@ -145,11 +175,14 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextComponent(
-                                text: "${(homeController.totalCount.value - ((homeController.currentPage.value-1)*20))-index}",
-                                width: 100,
-                              ),
+                              text:
+                                  "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
+                              width: 100,
+                            ),
                             TextComponent(
-                              text: homeController.userDataList[index].firstName ?? "",
+                              text: homeController
+                                      .userDataList[index].firstName ??
+                                  "",
                               width: 200,
                             ),
                             TextComponent(
@@ -159,7 +192,9 @@ class HomeView extends StatelessWidget {
                               width: 120,
                             ),
                             TextComponent(
-                              text: homeController.userDataList[index].phoneNumber ?? "--",
+                              text: homeController
+                                      .userDataList[index].phoneNumber ??
+                                  "--",
                               width: 120,
                             ),
                             TextComponent(

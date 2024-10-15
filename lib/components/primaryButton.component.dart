@@ -9,9 +9,7 @@ class PrimaryButtonComponent extends StatelessWidget {
     this.width = double.infinity,
     this.height = 50,
     this.fontSize = 18,
-    this.iconSize = 20,
-    this.showIcon = false,
-    this.icon,
+    this.showBorder = false,
   });
 
   final Function onClick;
@@ -19,9 +17,7 @@ class PrimaryButtonComponent extends StatelessWidget {
   final double width;
   final double height;
   final double fontSize;
-  final double iconSize;
-  final bool showIcon;
-  final IconData? icon;
+  final bool showBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -38,33 +34,29 @@ class PrimaryButtonComponent extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(100)),
+          border: Border.all(
+              color: showBorder
+                  ? context.theme.colorScheme.surfaceContainerLow
+                  : Colors.transparent),
           gradient: LinearGradient(
-            colors: [
-              context.theme.colorScheme.surfaceContainerLow,
-              context.theme.colorScheme.surfaceContainerHigh,
-            ],
+            colors: showBorder
+                ? [
+                    Colors.transparent,
+                    Colors.transparent,
+                  ]
+                : [
+                    context.theme.colorScheme.surfaceContainerLow,
+                    context.theme.colorScheme.surfaceContainerHigh,
+                  ],
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            showIcon
-                ? Icon(
-                    icon,
-                    size: iconSize,
-                    color: context.theme.colorScheme.onSurface,
-                  )
-                : const SizedBox.shrink(),
-            showIcon ? const SizedBox(width: 5) : const SizedBox.shrink(),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.w400,
-                color: context.theme.colorScheme.onSurface,
-              ),
-            ),
-          ],
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w400,
+            color: context.theme.colorScheme.onSurface,
+          ),
         ),
       ),
     );

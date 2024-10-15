@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Wheel24 - Spin & Win',
+      title: 'Wheel24 - Admin',
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       theme: ThemesUtil.light,
