@@ -76,65 +76,20 @@ class Data {
 class CashOutData {
   CashOutData({
       String? id, 
-      UserId? userId, 
+      String? userId, 
       num? status, 
       num? amount, 
-      String? createdAt, 
-      String? updatedAt,}){
-    _id = id;
-    _userId = userId;
-    _status = status;
-    _amount = amount;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-}
-
-  CashOutData.fromJson(dynamic json) {
-    _id = json['_id'];
-    _userId = json['userId'] != null ? UserId.fromJson(json['userId']) : null;
-    _status = json['status'];
-    _amount = json['amount'];
-    _createdAt = json['createdAt'];
-    _updatedAt = json['updatedAt'];
-  }
-  String? _id;
-  UserId? _userId;
-  num? _status;
-  num? _amount;
-  String? _createdAt;
-  String? _updatedAt;
-
-  String? get id => _id;
-  UserId? get userId => _userId;
-  num? get status => _status;
-  num? get amount => _amount;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = _id;
-    if (_userId != null) {
-      map['userId'] = _userId?.toJson();
-    }
-    map['status'] = _status;
-    map['amount'] = _amount;
-    map['createdAt'] = _createdAt;
-    map['updatedAt'] = _updatedAt;
-    return map;
-  }
-
-}
-
-class UserId {
-  UserId({
-      String? id, 
+      String? telegramId, 
       String? firstName, 
       num? referralCount, 
       String? accountHolderName, 
       String? phoneNumber, 
       String? upiId,}){
     _id = id;
+    _userId = userId;
+    _status = status;
+    _amount = amount;
+    _telegramId = telegramId;
     _firstName = firstName;
     _referralCount = referralCount;
     _accountHolderName = accountHolderName;
@@ -142,8 +97,12 @@ class UserId {
     _upiId = upiId;
 }
 
-  UserId.fromJson(dynamic json) {
+  CashOutData.fromJson(dynamic json) {
     _id = json['_id'];
+    _userId = json['userId'];
+    _status = json['status'];
+    _amount = json['amount'];
+    _telegramId = json['telegramId'];
     _firstName = json['firstName'];
     _referralCount = json['referralCount'];
     _accountHolderName = json['accountHolderName'];
@@ -151,6 +110,10 @@ class UserId {
     _upiId = json['upiId'];
   }
   String? _id;
+  String? _userId;
+  num? _status;
+  num? _amount;
+  String? _telegramId;
   String? _firstName;
   num? _referralCount;
   String? _accountHolderName;
@@ -158,6 +121,10 @@ class UserId {
   String? _upiId;
 
   String? get id => _id;
+  String? get userId => _userId;
+  num? get status => _status;
+  num? get amount => _amount;
+  String? get telegramId => _telegramId;
   String? get firstName => _firstName;
   num? get referralCount => _referralCount;
   String? get accountHolderName => _accountHolderName;
@@ -167,6 +134,10 @@ class UserId {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = _id;
+    map['userId'] = _userId;
+    map['status'] = _status;
+    map['amount'] = _amount;
+    map['telegramId'] = _telegramId;
     map['firstName'] = _firstName;
     map['referralCount'] = _referralCount;
     map['accountHolderName'] = _accountHolderName;

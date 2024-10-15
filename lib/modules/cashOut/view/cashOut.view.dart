@@ -3,7 +3,9 @@ import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
 import 'package:wheel24_admin/modules/cashOut/controller/cashOut.controller.dart';
 
+import '../../../components/primaryButton.component.dart';
 import '../../../components/text.component.dart';
+import '../../../components/textField.component.dart';
 
 class CashOutView extends StatelessWidget {
   CashOutView({super.key});
@@ -15,9 +17,7 @@ class CashOutView extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor:
-            context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
-        automaticallyImplyLeading: false,
+        backgroundColor: context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
         centerTitle: true,
         title: Text(
           "Cash Out Request",
@@ -30,45 +30,74 @@ class CashOutView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 40,
+                  width: 320,
+                  child: TextFieldComponent(
+                    textEditingController: cashOutController.searchController,
+                    hintText: "Search with Telegram Id/Phone No.",
+                    textInputType: TextInputType.text,
+                    maxLength: 100,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                PrimaryButtonComponent(
+                  onClick: ()=>cashOutController.onSearch(),
+                  text: "Search",
+                  height: 40,
+                  width: 90,
+                  fontSize: 16,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextComponent(
                   text: "Name",
-                  isColor: true,
-                  width: 250,
+                  isHeading: true,
+                  width: 200,
+                ),
+                TextComponent(
+                  text: "Telegram Id",
+                  isHeading: true,
+                  width: 120,
                 ),
                 TextComponent(
                   text: "Referral",
-                  isColor: false,
+                  isHeading: true,
                   width: 80,
                 ),
                 TextComponent(
                   text: "Acc. Holder Name",
-                  isColor: true,
+                  isHeading: true,
                   width: 250,
                 ),
                 TextComponent(
                   text: "Phone No.",
-                  isColor: false,
+                  isHeading: true,
                 ),
                 TextComponent(
                   text: "UPI ID",
-                  isColor: true,
+                  isHeading: true,
                   width: 250,
                 ),
                 TextComponent(
                   text: "Amount",
-                  isColor: false,
+                  isHeading: true,
                 ),
                 TextComponent(
                   text: "Status",
-                  isColor: false,
+                  isHeading: true,
                   width: 90,
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Expanded(
               child: Obx(
                 () => cashOutController.cashOutDataList.isEmpty ? const Center(child: Text("No Data Found"),)
@@ -83,47 +112,35 @@ class CashOutView extends StatelessWidget {
                     children: [
                       TextComponent(
                         text: cashOutController
-                                .cashOutDataList[index].userId?.firstName ??
+                                .cashOutDataList[index].firstName ??
                             "",
-                        isColor: true,
-                        width: 250,
+                        width: 200,
+                      ),
+                      TextComponent(
+                        text: cashOutController
+                            .cashOutDataList[index].telegramId ??
+                            "",
+                        width: 120,
                       ),
                       TextButtonComponent(
-                        text: cashOutController
-                                .cashOutDataList[index].userId?.referralCount
-                                .toString() ??
-                            "",
-                        isColor: false,
+                        text: cashOutController.cashOutDataList[index].referralCount.toString(),
                         width: 80,
-                        onClick: () => cashOutController.onReferralClick(
-                            cashOutController
-                                    .cashOutDataList[index].userId?.id ??
-                                ""),
+                        onClick: () => cashOutController.onReferralClick(cashOutController.cashOutDataList[index].userId ?? "", cashOutController.cashOutDataList[index].referralCount ?? 0),
                       ),
                       TextComponent(
-                        text: cashOutController.cashOutDataList[index].userId
-                                ?.accountHolderName ??
-                            "",
-                        isColor: true,
+                        text: cashOutController.cashOutDataList[index].accountHolderName ?? "--",
                         width: 250,
                       ),
                       TextComponent(
-                        text: cashOutController
-                                .cashOutDataList[index].userId?.phoneNumber ??
-                            "",
-                        isColor: false,
+                        text: cashOutController.cashOutDataList[index].phoneNumber ?? "--",
                       ),
                       TextComponent(
-                        text: cashOutController
-                                .cashOutDataList[index].userId?.upiId ??
-                            "",
-                        isColor: true,
+                        text: cashOutController.cashOutDataList[index].upiId ?? "--",
                         width: 250,
                       ),
                       TextComponent(
                         text: cashOutController.cashOutDataList[index].amount
                             .toString(),
-                        isColor: false,
                       ),
                       TextButtonComponent(
                         text: cashOutController.cashOutDataList[index].status ==
@@ -137,10 +154,15 @@ class CashOutView extends StatelessWidget {
                                         3
                                     ? "Rejected"
                                     : "",
-                        isColor: false,
                         width: 90,
                         onClick: () => cashOutController.onStatusClick(
                             cashOutController.cashOutDataList[index].id ?? ""),
+                        isSuccess: cashOutController.cashOutDataList[index].status ==
+                            2,
+                        isRejected: cashOutController
+                            .cashOutDataList[index].status ==
+                            3,
+                        isPending: cashOutController.cashOutDataList[index].status == 1,
                       ),
                     ],
                   ),
@@ -166,15 +188,16 @@ class TextButtonComponent extends StatelessWidget {
   const TextButtonComponent({
     super.key,
     required this.text,
-    required this.isColor,
     this.width = 160,
-    required this.onClick,
+    required this.onClick, this.isSuccess=false, this.isRejected=false, this.isPending=false,
   });
 
   final String text;
-  final bool isColor;
   final double width;
   final Function onClick;
+  final bool isSuccess;
+  final bool isRejected;
+  final bool isPending;
 
   @override
   Widget build(BuildContext context) {
@@ -188,15 +211,31 @@ class TextButtonComponent extends StatelessWidget {
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       child: Container(
         width: width,
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        color: false
-            ? context.theme.colorScheme.onSurface.withOpacity(0.25)
-            : Colors.transparent,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(100)),
+          gradient: LinearGradient(
+            colors: isSuccess ? [
+              Colors.green,
+              Colors.green,
+            ] : isRejected ? [
+              Colors.red,
+              Colors.red,
+            ] : isPending ? [
+              Colors.white.withOpacity(0.5),
+              Colors.white.withOpacity(0.5),
+            ] : [
+              context.theme.colorScheme.surfaceContainerLow.withOpacity(0.5),
+              context.theme.colorScheme.surfaceContainerHigh.withOpacity(0.5),
+            ],
+          ),
+        ),
         child: Text(
           text,
+          textAlign: TextAlign.center,
           maxLines: 4,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
             color: context.theme.colorScheme.onSurface,
           ),
