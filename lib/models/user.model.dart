@@ -3,7 +3,7 @@ class UserModel {
       String? status, 
       String? message, 
       num? responseCode, 
-      List<UserData>? data,}){
+      Data? data,}){
     _status = status;
     _message = message;
     _responseCode = responseCode;
@@ -14,22 +14,17 @@ class UserModel {
     _status = json['status'];
     _message = json['message'];
     _responseCode = json['responseCode'];
-    if (json['data'] != null) {
-      _data = [];
-      json['data'].forEach((v) {
-        _data?.add(UserData.fromJson(v));
-      });
-    }
+    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
   String? _status;
   String? _message;
   num? _responseCode;
-  List<UserData>? _data;
+  Data? _data;
 
   String? get status => _status;
   String? get message => _message;
   num? get responseCode => _responseCode;
-  List<UserData>? get data => _data;
+  Data? get data => _data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -37,8 +32,42 @@ class UserModel {
     map['message'] = _message;
     map['responseCode'] = _responseCode;
     if (_data != null) {
-      map['data'] = _data?.map((v) => v.toJson()).toList();
+      map['data'] = _data?.toJson();
     }
+    return map;
+  }
+
+}
+
+class Data {
+  Data({
+      List<UserData>? value,
+      num? count,}){
+    _value = value;
+    _count = count;
+}
+
+  Data.fromJson(dynamic json) {
+    if (json['value'] != null) {
+      _value = [];
+      json['value'].forEach((v) {
+        _value?.add(UserData.fromJson(v));
+      });
+    }
+    _count = json['count'];
+  }
+  List<UserData>? _value;
+  num? _count;
+
+  List<UserData>? get value => _value;
+  num? get count => _count;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (_value != null) {
+      map['value'] = _value?.map((v) => v.toJson()).toList();
+    }
+    map['count'] = _count;
     return map;
   }
 
@@ -56,6 +85,7 @@ class UserData {
       num? spinCount, 
       num? referralSpins, 
       String? referralCode, 
+      String? referredBy, 
       List<String>? referrals, 
       num? referralCount, 
       num? referralCountDue, 
@@ -74,6 +104,7 @@ class UserData {
     _spinCount = spinCount;
     _referralSpins = referralSpins;
     _referralCode = referralCode;
+    _referredBy = referredBy;
     _referrals = referrals;
     _referralCount = referralCount;
     _referralCountDue = referralCountDue;
@@ -95,6 +126,7 @@ class UserData {
     _spinCount = json['spinCount'];
     _referralSpins = json['referralSpins'];
     _referralCode = json['referralCode'];
+    _referredBy = json['referredBy'];
     _referrals = json['referrals'] != null ? json['referrals'].cast<String>() : [];
     _referralCount = json['referralCount'];
     _referralCountDue = json['referralCountDue'];
@@ -114,6 +146,7 @@ class UserData {
   num? _spinCount;
   num? _referralSpins;
   String? _referralCode;
+  String? _referredBy;
   List<String>? _referrals;
   num? _referralCount;
   num? _referralCountDue;
@@ -133,6 +166,7 @@ class UserData {
   num? get spinCount => _spinCount;
   num? get referralSpins => _referralSpins;
   String? get referralCode => _referralCode;
+  String? get referredBy => _referredBy;
   List<String>? get referrals => _referrals;
   num? get referralCount => _referralCount;
   num? get referralCountDue => _referralCountDue;
@@ -154,6 +188,7 @@ class UserData {
     map['spinCount'] = _spinCount;
     map['referralSpins'] = _referralSpins;
     map['referralCode'] = _referralCode;
+    map['referredBy'] = _referredBy;
     map['referrals'] = _referrals;
     map['referralCount'] = _referralCount;
     map['referralCountDue'] = _referralCountDue;

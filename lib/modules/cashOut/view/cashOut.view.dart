@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
 import 'package:wheel24_admin/modules/cashOut/controller/cashOut.controller.dart';
 
@@ -70,7 +71,8 @@ class CashOutView extends StatelessWidget {
             const SizedBox(height: 10),
             Expanded(
               child: Obx(
-                () => ListView.separated(
+                () => cashOutController.cashOutDataList.isEmpty ? const Center(child: Text("No Data Found"),)
+                : ListView.separated(
                   itemCount: cashOutController.cashOutDataList.length,
                   separatorBuilder: (context, index) => Divider(
                       height: 20,
@@ -143,6 +145,14 @@ class CashOutView extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Obx(
+                ()=> WebPagination(
+                onPageChanged: (value) => cashOutController.onPageChanged(value),
+                currentPage: cashOutController.currentPage.value,
+                totalPage: cashOutController.totalPages.value,
               ),
             ),
           ],

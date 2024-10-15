@@ -34,7 +34,7 @@ class HomeView extends StatelessWidget {
             highlightColor: Colors.transparent,
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             child: Icon(
-              Icons.currency_rupee_rounded,
+              Icons.account_balance_wallet_outlined,
               size: 28,
               color: context.theme.colorScheme.onSurface,
             ),
@@ -73,12 +73,11 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: 10),
             Expanded(
               child: Obx(
-                () => ListView.separated(
+                () =>homeController.userDataList.isEmpty ? const Center(child: Text("No Data Found"),) : ListView.separated(
                   itemCount: homeController.userDataList.length,
                   separatorBuilder: (context, index) => Divider(
                     height: 20,
-                    color:
-                        context.theme.colorScheme.onSurface.withOpacity(0.15),
+                    color: context.theme.colorScheme.onSurface.withOpacity(0.15),
                   ),
                   itemBuilder: (context, index) => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,12 +117,12 @@ class HomeView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            WebPagination(
-              onPageChanged: (value) {
-                print(value);
-              },
-              currentPage: 1,
-              totalPage: 10,
+            Obx(
+                ()=> WebPagination(
+                onPageChanged: (value) => homeController.onPageChanged(value),
+                currentPage: homeController.currentPage.value,
+                totalPage: homeController.totalPages.value,
+              ),
             ),
           ],
         ),

@@ -21,13 +21,13 @@ class TextComponent extends StatelessWidget {
       color: false
           ? context.theme.colorScheme.onSurface.withOpacity(0.25)
           : Colors.transparent,
-      child: Text(
+      child: SelectableText(
         text,
-        maxLines: 4,
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w500,
           color: context.theme.colorScheme.onSurface,
+          height: 1,
         ),
       ),
     );

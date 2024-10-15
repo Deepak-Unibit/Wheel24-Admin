@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wheel24_admin/models/referrals.model.dart';
+import 'package:wheel24_admin/modules/referrals/controller/referrals.controller.dart';
 import '../../../components/text.component.dart';
 
 class ReferralsView extends StatelessWidget {
   ReferralsView({super.key});
 
-  final List<ReferralsData> referralsDataList = Get.find<List<ReferralsData>>();
+  final ReferralsController referralsController = ReferralsController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class ReferralsView extends StatelessWidget {
             const SizedBox(height: 10),
             Expanded(
               child:  ListView.separated(
-                  itemCount: referralsDataList.length,
+                  itemCount: referralsController.referralsDataList.length,
                   separatorBuilder: (context, index) => Divider(
                       height: 20,
                       color: context.theme.colorScheme.onSurface
@@ -53,15 +53,13 @@ class ReferralsView extends StatelessWidget {
                   itemBuilder: (context, index) => Row(
                     children: [
                       TextComponent(
-                        text: referralsDataList[index].telegramId ??
-                            "",
+                        text: referralsController.referralsDataList[index].telegramId ?? "",
                         isColor: true,
                         width: 250,
                       ),
                       const SizedBox(width: 20),
                       TextComponent(
-                        text: referralsDataList[index].firstName ??
-                            "",
+                        text: referralsController.referralsDataList[index].firstName ?? "",
                         isColor: true,
                         width: 250,
                       ),
