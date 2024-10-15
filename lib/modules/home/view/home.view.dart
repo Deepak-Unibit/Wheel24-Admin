@@ -102,7 +102,7 @@ class HomeView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 40,
-                  width: Get.width <= 360 ? 200 : 320,
+                  width: Get.width <= 360 ? 180 : 320,
                   child: TextFieldComponent(
                     textEditingController: homeController.searchController,
                     hintText: "Search with Telegram Id/Phone No.",
