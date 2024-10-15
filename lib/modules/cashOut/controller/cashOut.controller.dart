@@ -1,18 +1,20 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wheel24_admin/api/call.api.dart';
 import 'package:wheel24_admin/api/url.api.dart';
 import 'package:wheel24_admin/components/loadingPage/loadingPage.component.dart';
-import 'package:wheel24_admin/models/cashout.model.dart';
 import 'package:wheel24_admin/models/referrals.model.dart';
 import 'package:wheel24_admin/models/response.model.dart';
 import 'package:wheel24_admin/modules/referrals/view/referrals.view.dart';
 import 'package:wheel24_admin/utils/routes.util.dart';
+import '../../../models/cashOut.model.dart';
 
 class CashOutController extends GetxController {
   RxList<CashOutData> cashOutDataList = <CashOutData>[].obs;
+  RxInt currentPage = 1.obs;
+  RxInt totalPages = 0.obs;
+  int limit = 5;
 
   CashOutController() {
     Future.delayed(200.milliseconds, () {
@@ -20,16 +22,24 @@ class CashOutController extends GetxController {
     });
   }
 
+  onPageChanged(int page) {
+    currentPage.value = page;
+    cashOutDataList.clear();
+    cashOutDataList.refresh();
+    getCashOutData();
+  }
+
   getCashOutData() async {
     LoadingPage.show();
-    var resp = await ApiCall.get(UrlApi.getCashOutRequest);
+    var resp = await ApiCall.get("${UrlApi.getCashOutRequest}?page=${currentPage.value}&limit=$limit");
     LoadingPage.close();
 
-    CashoutModel cashoutModel = CashoutModel.fromJson(resp);
+    CashOutModel cashOutModel = CashOutModel.fromJson(resp);
 
-    if (cashoutModel.responseCode == 200) {
-      cashOutDataList.addAll(cashoutModel.data!);
+    if (cashOutModel.responseCode == 200) {
+      cashOutDataList.addAll(cashOutModel.data!.value!);
       cashOutDataList.refresh();
+      totalPages.value = ((cashOutModel.data?.count??0)/limit).ceil();
     }
   }
 
@@ -44,9 +54,8 @@ class CashOutController extends GetxController {
     ReferralsModel referralsModel = ReferralsModel.fromJson(resp);
 
     if (referralsModel.responseCode == 200) {
-      List<ReferralsData> referralsData = referralsModel.data!;
-      Get.delete<List<ReferralsData>>();
-      Get.put(referralsData);
+      Get.delete<ReferralsModel>();
+      Get.put(referralsModel);
       RoutesUtil.to(() => ReferralsView());
     }
   }
@@ -68,10 +77,9 @@ class CashOutController extends GetxController {
             padding: const EdgeInsets.all(10),
             constraints: const BoxConstraints(maxWidth: 500),
             decoration: BoxDecoration(
-              color: context.theme.colorScheme.onSurface.withOpacity(0.05),
+              color: context.theme.colorScheme.surface,
               borderRadius: const BorderRadius.all(Radius.circular(20)),
-              border: Border.all(
-                  color: context.theme.colorScheme.onSurface.withOpacity(0.25)),
+              border: Border.all(color: context.theme.colorScheme.onSurface.withOpacity(0.25)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

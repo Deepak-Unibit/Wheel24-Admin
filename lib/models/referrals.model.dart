@@ -3,7 +3,7 @@ class ReferralsModel {
       String? status, 
       String? message, 
       num? responseCode, 
-      List<ReferralsData>? data,}){
+      Data? data,}){
     _status = status;
     _message = message;
     _responseCode = responseCode;
@@ -14,22 +14,17 @@ class ReferralsModel {
     _status = json['status'];
     _message = json['message'];
     _responseCode = json['responseCode'];
-    if (json['data'] != null) {
-      _data = [];
-      json['data'].forEach((v) {
-        _data?.add(ReferralsData.fromJson(v));
-      });
-    }
+    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
   String? _status;
   String? _message;
   num? _responseCode;
-  List<ReferralsData>? _data;
+  Data? _data;
 
   String? get status => _status;
   String? get message => _message;
   num? get responseCode => _responseCode;
-  List<ReferralsData>? get data => _data;
+  Data? get data => _data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -37,8 +32,42 @@ class ReferralsModel {
     map['message'] = _message;
     map['responseCode'] = _responseCode;
     if (_data != null) {
-      map['data'] = _data?.map((v) => v.toJson()).toList();
+      map['data'] = _data?.toJson();
     }
+    return map;
+  }
+
+}
+
+class Data {
+  Data({
+      List<ReferralsData>? value,
+      num? count,}){
+    _value = value;
+    _count = count;
+}
+
+  Data.fromJson(dynamic json) {
+    if (json['value'] != null) {
+      _value = [];
+      json['value'].forEach((v) {
+        _value?.add(ReferralsData.fromJson(v));
+      });
+    }
+    _count = json['count'];
+  }
+  List<ReferralsData>? _value;
+  num? _count;
+
+  List<ReferralsData>? get value => _value;
+  num? get count => _count;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (_value != null) {
+      map['value'] = _value?.map((v) => v.toJson()).toList();
+    }
+    map['count'] = _count;
     return map;
   }
 
