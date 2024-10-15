@@ -16,7 +16,8 @@ class CashOutController extends GetxController {
   RxList<CashOutData> cashOutDataList = <CashOutData>[].obs;
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
-  int limit = 5;
+  RxInt totalCount = 0.obs;
+  int limit = 20;
 
   CashOutController() {
     Future.delayed(200.milliseconds, () {
@@ -25,7 +26,7 @@ class CashOutController extends GetxController {
   }
 
   onPageChanged(int page) {
-    if(currentPage.value == page) {
+    if(currentPage.value == page || page<=0) {
       return;
     }
     currentPage.value = page;
@@ -58,6 +59,7 @@ class CashOutController extends GetxController {
     if (cashOutModel.responseCode == 200) {
       cashOutDataList.addAll(cashOutModel.data!.value!);
       cashOutDataList.refresh();
+      totalCount.value = cashOutModel.data!.count! as int;
       totalPages.value = ((cashOutModel.data?.count??0)/limit).ceil();
     }
     else {
@@ -76,10 +78,8 @@ class CashOutController extends GetxController {
       return;
     }
     LoadingPage.show();
-    var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=1&limit=10");
+    var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=1&limit=20");
     LoadingPage.close();
-
-    print(resp);
 
     ReferralsModel referralsModel = ReferralsModel.fromJson(resp);
 
@@ -199,7 +199,6 @@ class CashOutController extends GetxController {
     var resp = await ApiCall.get("${UrlApi.updateCashOutRequest}/$id/$status");
     LoadingPage.close();
 
-    print(resp);
     Get.back();
     ResponseModel responseModel = ResponseModel.fromJson(resp);
 

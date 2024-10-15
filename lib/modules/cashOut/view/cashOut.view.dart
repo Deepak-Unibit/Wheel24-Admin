@@ -58,6 +58,11 @@ class CashOutView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextComponent(
+                  text: "Sl. No.",
+                  isHeading: true,
+                  width: 100,
+                ),
+                TextComponent(
                   text: "Name",
                   isHeading: true,
                   width: 200,
@@ -110,6 +115,10 @@ class CashOutView extends StatelessWidget {
                   itemBuilder: (context, index) => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      TextComponent(
+                        text: "${(cashOutController.totalCount.value - ((cashOutController.currentPage.value-1)*20))-index}",
+                        width: 100,
+                      ),
                       TextComponent(
                         text: cashOutController
                                 .cashOutDataList[index].firstName ??

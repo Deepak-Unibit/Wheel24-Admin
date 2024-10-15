@@ -51,6 +51,7 @@ class TextFieldComponent extends StatelessWidget {
         fillColor: context.theme.colorScheme.onSurface,
         counterText: "",
         hintText: hintText,
+
         hintStyle: TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
