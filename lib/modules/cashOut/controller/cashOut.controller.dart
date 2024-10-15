@@ -24,7 +24,6 @@ class CashOutController extends GetxController {
     LoadingPage.show();
     var resp = await ApiCall.get(UrlApi.getCashOutRequest);
     LoadingPage.close();
-    print(resp);
 
     CashoutModel cashoutModel = CashoutModel.fromJson(resp);
 

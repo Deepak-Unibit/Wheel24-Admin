@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
 import 'package:wheel24_admin/modules/home/controller/home.controller.dart';
 
@@ -25,7 +26,7 @@ class HomeView extends StatelessWidget {
         ),
         actions: [
           MaterialButton(
-            onPressed: () =>homeController.onCashOutClick(),
+            onPressed: () => homeController.onCashOutClick(),
             minWidth: 0,
             padding: const EdgeInsets.only(right: 20),
             visualDensity: VisualDensity.compact,
@@ -73,10 +74,11 @@ class HomeView extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => ListView.separated(
-                  itemCount: homeController.userDataList.isEmpty ? 0 : 20,
+                  itemCount: homeController.userDataList.length,
                   separatorBuilder: (context, index) => Divider(
-                      height: 20,
-                      color: context.theme.colorScheme.onSurface.withOpacity(0.15),
+                    height: 20,
+                    color:
+                        context.theme.colorScheme.onSurface.withOpacity(0.15),
                   ),
                   itemBuilder: (context, index) => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,6 +116,14 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            const SizedBox(height: 10),
+            WebPagination(
+              onPageChanged: (value) {
+                print(value);
+              },
+              currentPage: 1,
+              totalPage: 10,
             ),
           ],
         ),

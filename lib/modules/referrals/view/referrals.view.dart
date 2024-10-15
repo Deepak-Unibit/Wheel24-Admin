@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wheel24_admin/models/referrals.model.dart';
-
 import '../../../components/text.component.dart';
 
 class ReferralsView extends StatelessWidget {
