@@ -73,7 +73,7 @@ class HomeView extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => ListView.separated(
-                  itemCount: homeController.userDataList.length,
+                  itemCount: homeController.userDataList.isEmpty ? 0 : 20,
                   separatorBuilder: (context, index) => Divider(
                       height: 20,
                       color: context.theme.colorScheme.onSurface.withOpacity(0.15),

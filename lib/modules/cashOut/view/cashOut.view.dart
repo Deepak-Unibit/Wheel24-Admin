@@ -14,6 +14,8 @@ class CashOutView extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
+        backgroundColor: context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           "Cash Out Request",
@@ -21,8 +23,6 @@ class CashOutView extends StatelessWidget {
             color: context.theme.colorScheme.onSurface,
           ),
         ),
-        backgroundColor:
-            context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
