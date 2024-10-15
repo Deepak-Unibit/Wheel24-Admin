@@ -94,7 +94,7 @@ class HomeView extends StatelessWidget {
                 TextComponent(
                   text: "Sl. No.",
                   isHeading: true,
-                  width: 50,
+                  width: 100,
                 ),
                 TextComponent(
                   text: "Name",
@@ -145,8 +145,8 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextComponent(
-                                text: "${index+1}",
-                                width: 50,
+                                text: "${(homeController.totalCount.value - ((homeController.currentPage.value-1)*20))-index}",
+                                width: 100,
                               ),
                             TextComponent(
                               text: homeController.userDataList[index].firstName ?? "",

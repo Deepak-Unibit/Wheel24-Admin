@@ -16,6 +16,7 @@ class CashOutController extends GetxController {
   RxList<CashOutData> cashOutDataList = <CashOutData>[].obs;
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
+  RxInt totalCount = 0.obs;
   int limit = 20;
 
   CashOutController() {
@@ -25,7 +26,7 @@ class CashOutController extends GetxController {
   }
 
   onPageChanged(int page) {
-    if(currentPage.value == page) {
+    if(currentPage.value == page || page<=0) {
       return;
     }
     currentPage.value = page;
@@ -58,6 +59,7 @@ class CashOutController extends GetxController {
     if (cashOutModel.responseCode == 200) {
       cashOutDataList.addAll(cashOutModel.data!.value!);
       cashOutDataList.refresh();
+      totalCount.value = cashOutModel.data!.count! as int;
       totalPages.value = ((cashOutModel.data?.count??0)/limit).ceil();
     }
     else {

@@ -12,6 +12,7 @@ class HomeController extends GetxController {
   RxList<UserData> userDataList = <UserData>[].obs;
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
+  RxInt totalCount = 0.obs;
   int limit = 20;
 
   HomeController() {
@@ -19,7 +20,7 @@ class HomeController extends GetxController {
   }
 
   onPageChanged(int page) {
-    if(currentPage.value == page) {
+    if(currentPage.value == page || page<=0) {
       return;
     }
     currentPage.value = page;
@@ -58,6 +59,7 @@ class HomeController extends GetxController {
     if(userModel.responseCode == 200) {
       userDataList.addAll(userModel.data!.value!);
       userDataList.refresh();
+      totalCount.value = userModel.data!.count! as int;
       totalPages.value = ((userModel.data?.count??0)/limit).ceil();
     }
   }

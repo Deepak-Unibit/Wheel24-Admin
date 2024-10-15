@@ -11,17 +11,19 @@ class ReferralsController extends GetxController {
   String id = "";
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
+  RxInt totalCount = 0.obs;
   int limit = 20;
 
   init(String id) {
     this.id = id;
     referralsDataList.addAll(referralsModel.data!.value!);
     referralsDataList.refresh();
+    totalCount.value = referralsModel.data!.count! as int;
     totalPages.value = ((referralsModel.data?.count??0)/limit).ceil();
   }
 
   onPageChanged(int page) {
-    if(currentPage.value == page) {
+    if(currentPage.value == page || page<=0) {
       return;
     }
     currentPage.value = page;
@@ -34,16 +36,13 @@ class ReferralsController extends GetxController {
     LoadingPage.show();
     var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=${currentPage.value}&limit=$limit");
     LoadingPage.close();
-
-    print(resp);
-
     ReferralsModel referralsModel = ReferralsModel.fromJson(resp);
 
     if (referralsModel.responseCode == 200) {
       referralsDataList.addAll(referralsModel.data!.value!);
       referralsDataList.refresh();
+      totalCount.value = referralsModel.data!.count! as int;
       totalPages.value = ((referralsModel.data?.count??0)/limit).ceil();
-      print(referralsDataList[0].firstName);
     }
   }
 

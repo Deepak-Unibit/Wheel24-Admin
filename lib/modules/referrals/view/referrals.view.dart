@@ -32,6 +32,11 @@ class ReferralsView extends StatelessWidget {
             const Row(
               children: [
                 TextComponent(
+                  text: "Sl. No.",
+                  isHeading: true,
+                  width: 100,
+                ),
+                TextComponent(
                   text: "Telegram ID",
                   isHeading: true,
                   width: 250,
@@ -55,6 +60,10 @@ class ReferralsView extends StatelessWidget {
                             .withOpacity(0.15)),
                     itemBuilder: (context, index) => Row(
                       children: [
+                        TextComponent(
+                          text: "${(referralsController.totalCount.value - ((referralsController.currentPage.value-1)*20))-index}",
+                          width: 100,
+                        ),
                         TextComponent(
                           text: referralsController.referralsDataList[index].telegramId ?? "",
                           width: 250,
