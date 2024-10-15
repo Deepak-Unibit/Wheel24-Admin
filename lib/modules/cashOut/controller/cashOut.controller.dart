@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wheel24_admin/api/call.api.dart';
 import 'package:wheel24_admin/api/url.api.dart';
 import 'package:wheel24_admin/components/loadingPage/loadingPage.component.dart';
+import 'package:wheel24_admin/helper/snackBar.helper.dart';
 import 'package:wheel24_admin/models/referrals.model.dart';
 import 'package:wheel24_admin/models/response.model.dart';
 import 'package:wheel24_admin/modules/referrals/view/referrals.view.dart';
@@ -11,6 +12,7 @@ import 'package:wheel24_admin/utils/routes.util.dart';
 import '../../../models/cashOut.model.dart';
 
 class CashOutController extends GetxController {
+  TextEditingController searchController = TextEditingController();
   RxList<CashOutData> cashOutDataList = <CashOutData>[].obs;
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
@@ -23,15 +25,32 @@ class CashOutController extends GetxController {
   }
 
   onPageChanged(int page) {
+    if(currentPage.value == page) {
+      return;
+    }
     currentPage.value = page;
     cashOutDataList.clear();
     cashOutDataList.refresh();
     getCashOutData();
   }
 
+  onSearch() {
+    searchController.text = searchController.text.trim();
+    currentPage.value = 1;
+    cashOutDataList.clear();
+    cashOutDataList.refresh();
+    getCashOutData();
+  }
+
   getCashOutData() async {
+    String url = "${UrlApi.getCashOutRequest}?page=${currentPage.value}&limit=$limit";
+
+    if(searchController.text.isNotEmpty) {
+      url += "&search=${searchController.text}";
+    }
+
     LoadingPage.show();
-    var resp = await ApiCall.get("${UrlApi.getCashOutRequest}?page=${currentPage.value}&limit=$limit");
+    var resp = await ApiCall.get(url);
     LoadingPage.close();
 
     CashOutModel cashOutModel = CashOutModel.fromJson(resp);
@@ -41,22 +60,36 @@ class CashOutController extends GetxController {
       cashOutDataList.refresh();
       totalPages.value = ((cashOutModel.data?.count??0)/limit).ceil();
     }
+    else {
+      SnackBarHelper.show(cashOutModel.message);
+    }
   }
 
-  onReferralClick(String id) async {
+  onReferralClick(String id, num count) async {
+    if(count<=0) {
+      SnackBarHelper.show("No Referrals");
+      return;
+    }
+
     if (id == "") {
+      SnackBarHelper.show("Id Not Found");
       return;
     }
     LoadingPage.show();
-    var resp = await ApiCall.get("${UrlApi.getReferrals}/$id");
+    var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=1&limit=10");
     LoadingPage.close();
+
+    print(resp);
 
     ReferralsModel referralsModel = ReferralsModel.fromJson(resp);
 
     if (referralsModel.responseCode == 200) {
       Get.delete<ReferralsModel>();
       Get.put(referralsModel);
-      RoutesUtil.to(() => ReferralsView());
+      RoutesUtil.to(() => ReferralsView(id: id));
+    }
+    else {
+      SnackBarHelper.show(referralsModel.message);
     }
   }
 
@@ -110,15 +143,19 @@ class CashOutController extends GetxController {
                   ),
                 ),
                 const SizedBox(height: 30),
+
                 MaterialButton(
                   onPressed: () => onStatusChange(id, 1),
-                  minWidth: 0,
+                  minWidth: 120,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                   visualDensity: VisualDensity.compact,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   color: Colors.green,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(100))
+                  ),
                   child: Text(
                     "Approve",
                     style: TextStyle(
@@ -131,13 +168,15 @@ class CashOutController extends GetxController {
                 const SizedBox(height: 20),
                 MaterialButton(
                   onPressed: () => onStatusChange(id, 0),
-                  minWidth: 0,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                  minWidth: 120,
+                  padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                   visualDensity: VisualDensity.compact,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   color: Colors.red,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(100))
+                  ),
                   child: Text(
                     "Reject",
                     style: TextStyle(
@@ -167,6 +206,9 @@ class CashOutController extends GetxController {
     if (responseModel.responseCode == 200) {
       cashOutDataList.clear();
       getCashOutData();
+    }
+    else {
+      SnackBarHelper.show(responseModel.message);
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wheel24_admin/api/call.api.dart';
 import 'package:wheel24_admin/api/url.api.dart';
@@ -7,6 +8,7 @@ import 'package:wheel24_admin/modules/cashOut/view/cashOut.view.dart';
 import 'package:wheel24_admin/utils/routes.util.dart';
 
 class HomeController extends GetxController {
+  TextEditingController searchController = TextEditingController();
   RxList<UserData> userDataList = <UserData>[].obs;
   RxInt currentPage = 1.obs;
   RxInt totalPages = 0.obs;
@@ -17,7 +19,18 @@ class HomeController extends GetxController {
   }
 
   onPageChanged(int page) {
+    if(currentPage.value == page) {
+      return;
+    }
     currentPage.value = page;
+    userDataList.clear();
+    userDataList.refresh();
+    getUserData();
+  }
+
+  onSearch() {
+    searchController.text = searchController.text.trim();
+    currentPage.value = 1;
     userDataList.clear();
     userDataList.refresh();
     getUserData();
@@ -28,8 +41,16 @@ class HomeController extends GetxController {
   }
 
   getUserData() async {
+    String url = UrlApi.getUsers;
+    if(searchController.text.isNotEmpty) {
+      url += "?search=${searchController.text}&page=${currentPage.value}&limit=$limit";
+    }
+    else {
+      url += "?page=${currentPage.value}&limit=$limit";
+    }
+
     LoadingPage.show();
-    var resp = await ApiCall.get("${UrlApi.getUsers}?page=${currentPage.value}&limit=$limit");
+    var resp = await ApiCall.get(url);
     LoadingPage.close();
 
     print("${UrlApi.getUsers}?page=${currentPage.value}&limit=$limit");
