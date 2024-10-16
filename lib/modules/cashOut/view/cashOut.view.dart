@@ -67,13 +67,13 @@ class CashOutView extends StatelessWidget {
                           TextComponent(
                             text: "Sl. No.",
                             isHeading: true,
-                            width: 100,
+                            width: 60,
                           ),
                           SizedBox(width: 20),
                           TextComponent(
                             text: "Name",
                             isHeading: true,
-                            width: 200,
+                            width: 100,
                           ),
                           SizedBox(width: 20),
                           TextComponent(
@@ -97,6 +97,7 @@ class CashOutView extends StatelessWidget {
                           TextComponent(
                             text: "Phone No.",
                             isHeading: true,
+                            width: 100,
                           ),
                           SizedBox(width: 20),
                           TextComponent(
@@ -133,14 +134,14 @@ class CashOutView extends StatelessWidget {
                               children: [
                                 TextComponent(
                                   text: "${(cashOutController.totalCount.value - ((cashOutController.currentPage.value-1)*20))-index}",
-                                  width: 100,
+                                  width: 60,
                                 ),
                                 const SizedBox(width: 20),
                                 TextComponent(
                                   text: cashOutController
                                       .cashOutDataList[index].firstName ??
                                       "",
-                                  width: 200,
+                                  width: 100,
                                 ),
                                 const SizedBox(width: 20),
                                 TextComponent(
@@ -163,6 +164,7 @@ class CashOutView extends StatelessWidget {
                                 const SizedBox(width: 20),
                                 TextComponent(
                                   text: cashOutController.cashOutDataList[index].phoneNumber ?? "--",
+                                  width: 100,
                                 ),
                                 const SizedBox(width: 20),
                                 TextComponent(
