@@ -124,11 +124,11 @@ class HomeView extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  width: 1800,
-                  child: Column(
-                    children: [
-                      const Row(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      width: 1800,
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextComponent(
@@ -168,21 +168,24 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      Expanded(
-                        child: Obx(
-                          () => homeController.userDataList.isEmpty
-                              ? const Center(
-                                  child: Text("No Data Found"),
-                                )
-                              : ListView.separated(
-                                  itemCount: homeController.userDataList.length,
-                                  separatorBuilder: (context, index) => Divider(
-                                    height: 20,
-                                    color: context.theme.colorScheme.onSurface
-                                        .withOpacity(0.15),
-                                  ),
-                                  itemBuilder: (context, index) => Row(
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: Obx(
+                        () => homeController.userDataList.isEmpty
+                            ? const Center(
+                                child: Text("No Data Found"),
+                              )
+                            : ListView.separated(
+                                itemCount: homeController.userDataList.length,
+                                separatorBuilder: (context, index) => Divider(
+                                  height: 20,
+                                  color: context.theme.colorScheme.onSurface
+                                      .withOpacity(0.15),
+                                ),
+                                itemBuilder: (context, index) => SizedBox(
+                                  width: 1800,
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -226,10 +229,10 @@ class HomeView extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                        ),
+                              ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
