@@ -102,7 +102,7 @@ class HomeView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 40,
-                  width: 280,
+                  width: 260,
                   child: TextFieldComponent(
                     textEditingController: homeController.searchController,
                     hintText: "Search with Telegram Id/Phone No.",
@@ -128,48 +128,45 @@ class HomeView extends StatelessWidget {
                   width: 1800,
                   child: Column(
                     children: [
-                      const SizedBox(
-                        width: 1800,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextComponent(
-                              text: "Sl. No.",
-                              isHeading: true,
-                              width: 100,
-                            ),
-                            TextComponent(
-                              text: "Name",
-                              isHeading: true,
-                              width: 200,
-                            ),
-                            TextComponent(
-                              text: "Telegram Id",
-                              isHeading: true,
-                              width: 100,
-                            ),
-                            TextComponent(
-                              text: "Phone No.",
-                              isHeading: true,
-                              width: 100,
-                            ),
-                            TextComponent(
-                              text: "Earned Amount",
-                              isHeading: true,
-                              width: 120,
-                            ),
-                            TextComponent(
-                              text: "Referral",
-                              isHeading: true,
-                              width: 65,
-                            ),
-                            TextComponent(
-                              text: "Joined Date",
-                              isHeading: true,
-                              width: 190,
-                            ),
-                          ],
-                        ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextComponent(
+                            text: "Sl. No.",
+                            isHeading: true,
+                            width: 100,
+                          ),
+                          TextComponent(
+                            text: "Name",
+                            isHeading: true,
+                            width: 200,
+                          ),
+                          TextComponent(
+                            text: "Telegram Id",
+                            isHeading: true,
+                            width: 100,
+                          ),
+                          TextComponent(
+                            text: "Phone No.",
+                            isHeading: true,
+                            width: 100,
+                          ),
+                          TextComponent(
+                            text: "Earned Amount",
+                            isHeading: true,
+                            width: 120,
+                          ),
+                          TextComponent(
+                            text: "Referral",
+                            isHeading: true,
+                            width: 65,
+                          ),
+                          TextComponent(
+                            text: "Joined Date",
+                            isHeading: true,
+                            width: 190,
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 20),
                       Expanded(
@@ -185,51 +182,46 @@ class HomeView extends StatelessWidget {
                                     color: context.theme.colorScheme.onSurface
                                         .withOpacity(0.15),
                                   ),
-                                  itemBuilder: (context, index) => SizedBox(
-                                    width: 1800,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        TextComponent(
-                                          text:
-                                              "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
-                                          width: 100,
-                                        ),
-                                        TextComponent(
-                                          text: homeController.userDataList[index]
-                                                  .firstName ??
-                                              "",
-                                          width: 200,
-                                        ),
-                                        TextComponent(
-                                          text: homeController.userDataList[index]
-                                                  .telegramId ??
-                                              "",
-                                          width: 100,
-                                        ),
-                                        TextComponent(
-                                          text: homeController.userDataList[index]
-                                                  .phoneNumber ??
-                                              "--",
-                                          width: 100,
-                                        ),
-                                        TextComponent(
-                                          text: "₹ ${((homeController.userDataList[index].earnedAmount ?? 0.0) * 100).truncate() / 100}",
-                                          width: 120,
-                                        ),
-                                        TextComponent(
-                                          text: homeController
-                                              .userDataList[index].referralCount
-                                              .toString(),
-                                          width: 65,
-                                        ),
-                                        TextComponent(
-                                          text: DateHelper().dateFormat(date: homeController.userDataList[index].createdAt ??"", format: "dd-MM-yyyy hh:mm:ss a"),
-                                          width: 190,
-                                        ),
-                                      ],
-                                    ),
+                                  itemBuilder: (context, index) => Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextComponent(
+                                        text: "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
+                                        width: 100,
+                                      ),
+                                      TextComponent(
+                                        text: homeController.userDataList[index]
+                                                .firstName ??
+                                            "",
+                                        width: 200,
+                                      ),
+                                      TextComponent(
+                                        text: homeController.userDataList[index]
+                                                .telegramId ??
+                                            "",
+                                        width: 100,
+                                      ),
+                                      TextComponent(
+                                        text: homeController.userDataList[index]
+                                                .phoneNumber ??
+                                            "--",
+                                        width: 100,
+                                      ),
+                                      TextComponent(
+                                        text: "₹ ${((homeController.userDataList[index].earnedAmount ?? 0.0) * 100).truncate() / 100}",
+                                        width: 120,
+                                      ),
+                                      TextComponent(
+                                        text: homeController
+                                            .userDataList[index].referralCount
+                                            .toString(),
+                                        width: 65,
+                                      ),
+                                      TextComponent(
+                                        text: DateHelper().dateFormat(date: homeController.userDataList[index].createdAt ??"", format: "dd-MM-yyyy hh:mm:ss a"),
+                                        width: 190,
+                                      ),
+                                    ],
                                   ),
                                 ),
                         ),

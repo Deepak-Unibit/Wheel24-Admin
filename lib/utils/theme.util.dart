@@ -28,7 +28,8 @@ class ThemesUtil {
       surfaceContainerLow: Color(0xFF540B81),
       surfaceContainerHigh: Color(0xFFB600FF),
       primaryFixed: Color(0xFFFFCE1B),
-      secondaryFixed: Color(0xFFFF6812)
+      secondaryFixed: Color(0xFFFF6812),
+       onSurfaceVariant: Color(0xFF808080)
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xFFFFFFFF),
@@ -47,18 +48,6 @@ class ThemesUtil {
       showUnselectedLabels: true,
       selectedItemColor: Color(0xFFA4AAB1),
       unselectedItemColor: Color(0xFFA4AAB1),
-    ),
-    datePickerTheme: const DatePickerThemeData(
-      backgroundColor: Colors.white,
-      surfaceTintColor: Colors.white,
-      headerForegroundColor: Color(0xFF0F1011),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      yearForegroundColor: MaterialStatePropertyAll(Color(0xFF0F1011)),
-      dividerColor: Color(0xFFA4AAB1),
     ),
   );
 }
