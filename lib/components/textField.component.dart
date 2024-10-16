@@ -51,21 +51,12 @@ class TextFieldComponent extends StatelessWidget {
         fillColor: context.theme.colorScheme.onSurface,
         counterText: "",
         hintText: hintText,
-
         hintStyle: TextStyle(
-          fontSize: 15,
+          fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: context.theme.colorScheme.surface,
+          color: context.theme.colorScheme.onSurfaceVariant,
         ),
-        prefixIcon: isIcon
-            ? Icon(
-                icon,
-                size: 22,
-                color: context.theme.colorScheme.surfaceBright,
-              )
-            : null,
-        contentPadding: EdgeInsets.symmetric(
-            horizontal: isIcon ? 5 : contentPadding, vertical: contentPadding),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           borderSide: const BorderSide(
