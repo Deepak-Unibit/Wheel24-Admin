@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
 import 'package:wheel24_admin/components/primaryButton.component.dart';
+import 'package:wheel24_admin/helper/date.helper.dart';
 import 'package:wheel24_admin/modules/home/controller/home.controller.dart';
 
 import '../../../components/text.component.dart';
@@ -143,26 +144,27 @@ class HomeView extends StatelessWidget {
                           TextComponent(
                             text: "Telegram Id",
                             isHeading: true,
-                            width: 120,
+                            width: 100,
                           ),
                           TextComponent(
                             text: "Phone No.",
                             isHeading: true,
-                            width: 120,
+                            width: 100,
                           ),
                           TextComponent(
                             text: "Earned Amount",
                             isHeading: true,
-                            width: 250,
+                            width: 120,
                           ),
                           TextComponent(
                             text: "Referral",
                             isHeading: true,
+                            width: 65,
                           ),
                           TextComponent(
-                            text: "Status",
+                            text: "Joined Date",
                             isHeading: true,
-                            width: 80,
+                            width: 190,
                           ),
                         ],
                       ),
@@ -199,32 +201,27 @@ class HomeView extends StatelessWidget {
                                         text: homeController.userDataList[index]
                                                 .telegramId ??
                                             "",
-                                        width: 120,
+                                        width: 100,
                                       ),
                                       TextComponent(
                                         text: homeController.userDataList[index]
                                                 .phoneNumber ??
                                             "--",
-                                        width: 120,
+                                        width: 100,
                                       ),
                                       TextComponent(
-                                        text: homeController
-                                            .userDataList[index].earnedAmount
-                                            .toString(),
-                                        width: 250,
+                                        text: "₹ ${((homeController.userDataList[index].earnedAmount ?? 0.0) * 100).truncate() / 100}",
+                                        width: 120,
                                       ),
                                       TextComponent(
                                         text: homeController
                                             .userDataList[index].referralCount
                                             .toString(),
+                                        width: 65,
                                       ),
                                       TextComponent(
-                                        text: homeController.userDataList[index]
-                                                    .status ??
-                                                false
-                                            ? "Active"
-                                            : "Inactive",
-                                        width: 80,
+                                        text: DateHelper().dateFormat(date: homeController.userDataList[index].createdAt ??"", format: "dd-MM-yyyy hh:mm:ss a"),
+                                        width: 190,
                                       ),
                                     ],
                                   ),

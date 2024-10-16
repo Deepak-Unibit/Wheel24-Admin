@@ -24,8 +24,8 @@ class HomeController extends GetxController {
   RxBool isIPRestrict = false.obs;
 
   HomeController() {
-    Future.delayed(200.milliseconds, () async {
-      await getIPStatus();
+    getIPStatus();
+    Future.delayed(200.milliseconds, () {
       getUserData();
     });
   }

@@ -78,7 +78,7 @@ class CashOutView extends StatelessWidget {
                           TextComponent(
                             text: "Telegram Id",
                             isHeading: true,
-                            width: 120,
+                            width: 100,
                           ),
                           TextComponent(
                             text: "Referral",
@@ -88,7 +88,7 @@ class CashOutView extends StatelessWidget {
                           TextComponent(
                             text: "Acc. Holder Name",
                             isHeading: true,
-                            width: 250,
+                            width: 200,
                           ),
                           TextComponent(
                             text: "Phone No.",
@@ -102,6 +102,7 @@ class CashOutView extends StatelessWidget {
                           TextComponent(
                             text: "Amount",
                             isHeading: true,
+                            width: 80,
                           ),
                           TextComponent(
                             text: "Status",
@@ -137,7 +138,7 @@ class CashOutView extends StatelessWidget {
                                   text: cashOutController
                                       .cashOutDataList[index].telegramId ??
                                       "",
-                                  width: 120,
+                                  width: 100,
                                 ),
                                 TextButtonComponent(
                                   text: cashOutController.cashOutDataList[index].referralCount.toString(),
@@ -146,7 +147,7 @@ class CashOutView extends StatelessWidget {
                                 ),
                                 TextComponent(
                                   text: cashOutController.cashOutDataList[index].accountHolderName ?? "--",
-                                  width: 250,
+                                  width: 200,
                                 ),
                                 TextComponent(
                                   text: cashOutController.cashOutDataList[index].phoneNumber ?? "--",
@@ -156,8 +157,8 @@ class CashOutView extends StatelessWidget {
                                   width: 250,
                                 ),
                                 TextComponent(
-                                  text: cashOutController.cashOutDataList[index].amount
-                                      .toString(),
+                                  text: "₹ ${cashOutController.cashOutDataList[index].amount}",
+                                  width: 80,
                                 ),
                                 TextButtonComponent(
                                   text: cashOutController.cashOutDataList[index].status ==

@@ -15,9 +15,8 @@ class TextComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
-      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: SelectableText(
         text,
         style: TextStyle(
