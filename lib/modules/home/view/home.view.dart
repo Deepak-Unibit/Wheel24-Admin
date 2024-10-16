@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
