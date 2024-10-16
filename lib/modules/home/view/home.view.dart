@@ -229,7 +229,7 @@ class HomeView extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 20),
                                       TextComponent(
-                                        text: DateHelper().dateFormat(date: homeController.userDataList[index].createdAt ??"", format: "dd-MM-yyyy hh:mm:ss a"),
+                                        text: DateHelper().dateFormatNull(date: homeController.userDataList[index].createdAt ??"", format: "dd-MM-yyyy hh:mm:ss a"),
                                         width: 190,
                                       ),
                                     ],
