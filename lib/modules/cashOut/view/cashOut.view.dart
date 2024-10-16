@@ -35,7 +35,7 @@ class CashOutView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 40,
-                  width: Get.width <= 360 ? 200 : 320,
+                  width: Get.width <= 500 ? 200 : 320,
                   child: TextFieldComponent(
                     textEditingController: cashOutController.searchController,
                     hintText: "Search with Telegram Id/Phone No.",

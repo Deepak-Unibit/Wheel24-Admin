@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:wheel24_admin/components/primaryButton.component.dart';
 import 'package:wheel24_admin/helper/date.helper.dart';
 import 'package:wheel24_admin/modules/home/controller/home.controller.dart';
-
 import '../../../components/text.component.dart';
 import '../../../components/textField.component.dart';
 
@@ -103,7 +102,7 @@ class HomeView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 40,
-                  width: Get.width <= 360 ? 180 : 320,
+                  width: Get.width <= 500 ? 180 : 320,
                   child: TextFieldComponent(
                     textEditingController: homeController.searchController,
                     hintText: "Search with Telegram Id/Phone No.",
