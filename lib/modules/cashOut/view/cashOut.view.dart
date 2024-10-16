@@ -54,56 +54,63 @@ class CashOutView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
-                  width: 1800,
+                  width: Get.width <= 500 ? 1450 : 1800,
                   child: Column(
                     children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                      Row(
+                        mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                        children: const [
                           TextComponent(
                             text: "Sl. No.",
                             isHeading: true,
                             width: 100,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "Name",
                             isHeading: true,
                             width: 200,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "Telegram Id",
                             isHeading: true,
                             width: 100,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "Referral",
                             isHeading: true,
                             width: 80,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "Acc. Holder Name",
                             isHeading: true,
                             width: 200,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "Phone No.",
                             isHeading: true,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "UPI ID",
                             isHeading: true,
                             width: 250,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "Amount",
                             isHeading: true,
                             width: 80,
                           ),
+                          SizedBox(width: 20),
                           TextComponent(
                             text: "Status",
                             isHeading: true,
@@ -122,44 +129,52 @@ class CashOutView extends StatelessWidget {
                                 color: context.theme.colorScheme.onSurface
                                     .withOpacity(0.15)),
                             itemBuilder: (context, index) => Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
                               children: [
                                 TextComponent(
                                   text: "${(cashOutController.totalCount.value - ((cashOutController.currentPage.value-1)*20))-index}",
                                   width: 100,
                                 ),
+                                const SizedBox(width: 20),
                                 TextComponent(
                                   text: cashOutController
                                       .cashOutDataList[index].firstName ??
                                       "",
                                   width: 200,
                                 ),
+                                const SizedBox(width: 20),
                                 TextComponent(
                                   text: cashOutController
                                       .cashOutDataList[index].telegramId ??
                                       "",
                                   width: 100,
                                 ),
+                                const SizedBox(width: 20),
                                 TextButtonComponent(
                                   text: cashOutController.cashOutDataList[index].referralCount.toString(),
                                   width: 80,
                                   onClick: () => cashOutController.onReferralClick(cashOutController.cashOutDataList[index].userId ?? "", cashOutController.cashOutDataList[index].referralCount ?? 0),
                                 ),
+                                const SizedBox(width: 20),
                                 TextComponent(
                                   text: cashOutController.cashOutDataList[index].accountHolderName ?? "--",
                                   width: 200,
                                 ),
+                                const SizedBox(width: 20),
                                 TextComponent(
                                   text: cashOutController.cashOutDataList[index].phoneNumber ?? "--",
                                 ),
+                                const SizedBox(width: 20),
                                 TextComponent(
                                   text: cashOutController.cashOutDataList[index].upiId ?? "--",
                                   width: 250,
                                 ),
+                                const SizedBox(width: 20),
                                 TextComponent(
                                   text: "₹ ${cashOutController.cashOutDataList[index].amount}",
                                   width: 80,
                                 ),
+                                const SizedBox(width: 20),
                                 TextButtonComponent(
                                   text: cashOutController.cashOutDataList[index].status ==
                                       1

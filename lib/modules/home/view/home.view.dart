@@ -125,22 +125,22 @@ class HomeView extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
-                  width: 1800,
+                  width: Get.width <= 500 ? 875 : 1800,
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
                         children: const [
                           TextComponent(
                             text: "Sl. No.",
                             isHeading: true,
-                            width: 100,
+                            width: 60,
                           ),
                           SizedBox(width: 20),
                           TextComponent(
                             text: "Name",
                             isHeading: true,
-                            width: 200,
+                            width: 100,
                           ),
                           SizedBox(width: 20),
                           TextComponent(
@@ -189,18 +189,18 @@ class HomeView extends StatelessWidget {
                                         .withOpacity(0.15),
                                   ),
                                   itemBuilder: (context, index) => Row(
-                                   mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+                                   mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
                                     children: [
                                       TextComponent(
                                         text: "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
-                                        width: 100,
+                                        width: 60,
                                       ),
                                       const SizedBox(width: 20),
                                       TextComponent(
                                         text: homeController.userDataList[index]
                                                 .firstName ??
                                             "",
-                                        width: 200,
+                                        width: 100,
                                       ),
                                       const SizedBox(width: 20),
                                       TextComponent(
