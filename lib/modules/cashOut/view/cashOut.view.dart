@@ -58,7 +58,7 @@ class CashOutView extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
-                  width: Get.width <= 500 ? 1300 : 1800,
+                  width: Get.width <= 500 ? 1225 : 1800,
                   child: Column(
                     children: [
                       Row(

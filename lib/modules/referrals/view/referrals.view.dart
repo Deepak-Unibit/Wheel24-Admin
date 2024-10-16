@@ -34,7 +34,7 @@ class ReferralsView extends StatelessWidget {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: 800,
+                    width: 350,
                     child: Column(
                       children: [
                         const Row(
@@ -42,18 +42,18 @@ class ReferralsView extends StatelessWidget {
                             TextComponent(
                               text: "Sl. No.",
                               isHeading: true,
-                              width: 100,
+                              width: 60,
                             ),
                             TextComponent(
                               text: "Telegram ID",
                               isHeading: true,
-                              width: 250,
+                              width: 100,
                             ),
                             SizedBox(width: 20),
                             TextComponent(
                               text: "Name",
                               isHeading: true,
-                              width: 250,
+                              width: 170,
                             ),
                           ],
                         ),
@@ -70,16 +70,16 @@ class ReferralsView extends StatelessWidget {
                                 children: [
                                   TextComponent(
                                     text: "${(referralsController.totalCount.value - ((referralsController.currentPage.value-1)*20))-index}",
-                                    width: 100,
+                                    width: 60,
                                   ),
                                   TextComponent(
                                     text: referralsController.referralsDataList[index].telegramId ?? "",
-                                    width: 250,
+                                    width: 100,
                                   ),
                                   const SizedBox(width: 20),
                                   TextComponent(
                                     text: referralsController.referralsDataList[index].firstName ?? "",
-                                    width: 250,
+                                    width: 170,
                                   ),
                                 ],
                               ),

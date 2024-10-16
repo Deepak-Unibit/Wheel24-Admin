@@ -124,7 +124,7 @@ class HomeView extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
-                  width: Get.width <= 500 ? 875 : 1800,
+                  width: Get.width <= 500 ? 860 : 1800,
                   child: Column(
                     children: [
                       Row(
