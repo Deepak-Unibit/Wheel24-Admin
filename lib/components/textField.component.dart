@@ -64,8 +64,7 @@ class TextFieldComponent extends StatelessWidget {
                 color: context.theme.colorScheme.surfaceBright,
               )
             : null,
-        contentPadding: EdgeInsets.symmetric(
-            horizontal: isIcon ? 5 : contentPadding, vertical: contentPadding),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           borderSide: const BorderSide(
