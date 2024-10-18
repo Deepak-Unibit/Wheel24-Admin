@@ -12,6 +12,7 @@ import 'package:wheel24_admin/models/blockIP.model.dart';
 import 'package:wheel24_admin/models/response.model.dart';
 import 'package:wheel24_admin/models/user.model.dart';
 import 'package:wheel24_admin/modules/cashOut/view/cashOut.view.dart';
+import 'package:wheel24_admin/modules/ranks/view/ranks.view.dart';
 import 'package:wheel24_admin/utils/routes.util.dart';
 
 class HomeController extends GetxController {
@@ -139,6 +140,10 @@ class HomeController extends GetxController {
 
   onCashOutClick() {
     RoutesUtil.to(()=>CashOutView());
+  }
+
+  onRanksClick() {
+    RoutesUtil.to(()=>RanksView());
   }
 
   getUserData() async {

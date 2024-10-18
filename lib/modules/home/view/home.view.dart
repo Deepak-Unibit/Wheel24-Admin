@@ -41,32 +41,71 @@ class HomeView extends StatelessWidget {
                 side: BorderSide(
                   color: context.theme.colorScheme.surfaceContainerLow,
                   width: 2,
-                )),
+                ),
+            ),
             child: Row(
               children: [
                 Icon(
                   Icons.account_balance_wallet_outlined,
-                  size: 24,
+                  size: 18,
                   color: context.theme.colorScheme.onSurface,
                 ),
-                const SizedBox(width: 5),
+                const SizedBox(width: 2),
                 Text(
                   "Cash Out",
                   style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
                     color: context.theme.colorScheme.onSurface,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 10),
+          MaterialButton(
+            onPressed: () => homeController.onRanksClick(),
+            minWidth: 0,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            visualDensity: VisualDensity.compact,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            color: context.theme.colorScheme.surface.withOpacity(0.25),
+            shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(100)),
+                side: BorderSide(
+                  color: context.theme.colorScheme.surfaceContainerLow,
+                  width: 2,
+                ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.leaderboard_outlined,
+                  size: 18,
+                  color: context.theme.colorScheme.onSurface,
+                ),
+                const SizedBox(width: 2),
+                Text(
+                  "Ranks",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: context.theme.colorScheme.onSurface,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
           Text(
             "Restrict IP",
             style: TextStyle(
               color: context.theme.colorScheme.onSurface,
             ),
           ),
-          const SizedBox(width: 5),
+          const SizedBox(width: 2),
           SizedBox(
             height: 30,
             width: 45,
