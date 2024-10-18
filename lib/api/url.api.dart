@@ -10,5 +10,6 @@ class UrlApi {
   static const updateCashOutRequest = "$baseUrl/admin/update-cash-out-request";
   static const getBlockIPStatus = "$baseUrl/admin/block-ip";
   static const setBlockIPStatus = "$baseUrl/admin/block-ip";
+  static const getRanks = "$baseUrl/admin/rankers";
 
 }
