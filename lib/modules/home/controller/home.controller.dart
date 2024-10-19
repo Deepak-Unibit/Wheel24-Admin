@@ -30,6 +30,14 @@ class HomeController extends GetxController {
     getUserData();
   }
 
+  onRefresh() {
+    searchController.clear();
+    currentPage.value = 1;
+    userDataList.clear();
+    userDataList.refresh();
+    getUserData();
+  }
+
   onSearch() {
     searchController.text = searchController.text.trim();
     currentPage.value = 1;

@@ -35,6 +35,14 @@ class CashOutController extends GetxController {
     getCashOutData();
   }
 
+  onRefresh() {
+    searchController.clear();
+    currentPage.value = 1;
+    cashOutDataList.clear();
+    cashOutDataList.refresh();
+    getCashOutData();
+  }
+
   onSearch() {
     searchController.text = searchController.text.trim();
     currentPage.value = 1;
@@ -76,8 +84,6 @@ class CashOutController extends GetxController {
     LoadingPage.show();
     var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=1&limit=20");
     LoadingPage.close();
-
-    print(resp);
 
     ReferralsModel referralsModel = ReferralsModel.fromJson(resp);
 
