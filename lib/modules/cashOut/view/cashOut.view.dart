@@ -17,7 +17,8 @@ class CashOutView extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
+        backgroundColor:
+            context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
         centerTitle: true,
         title: Text(
           "Cash Out Request",
@@ -25,6 +26,22 @@ class CashOutView extends StatelessWidget {
             color: context.theme.colorScheme.onSurface,
           ),
         ),
+        actions: [
+          MaterialButton(
+            onPressed: () => cashOutController.onRefresh(),
+            minWidth: 0,
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            child: Icon(
+              Icons.refresh,
+              size: 24,
+              color: context.theme.colorScheme.onSurface,
+            ),
+          ),
+          const SizedBox(width: 20),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -47,7 +64,7 @@ class CashOutView extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 PrimaryButtonComponent(
-                  onClick: ()=>cashOutController.onSearch(),
+                  onClick: () => cashOutController.onSearch(),
                   text: "Search",
                   height: 40,
                   width: 70,
@@ -64,7 +81,9 @@ class CashOutView extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: Get.width <= 500
+                            ? MainAxisAlignment.start
+                            : MainAxisAlignment.spaceBetween,
                         children: const [
                           TextComponent(
                             text: "Sl. No.",
@@ -124,86 +143,131 @@ class CashOutView extends StatelessWidget {
                       const SizedBox(height: 20),
                       Expanded(
                         child: Obx(
-                              () => cashOutController.cashOutDataList.isEmpty ? const Center(child: Text("No Data Found"),)
+                          () => cashOutController.cashOutDataList.isEmpty
+                              ? const Center(
+                                  child: Text("No Data Found"),
+                                )
                               : ListView.separated(
-                            itemCount: cashOutController.cashOutDataList.length,
-                            separatorBuilder: (context, index) => Divider(
-                                height: 20,
-                                color: context.theme.colorScheme.onSurface
-                                    .withOpacity(0.15)),
-                            itemBuilder: (context, index) => Row(
-                              mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextComponent(
-                                  text: "${(cashOutController.totalCount.value - ((cashOutController.currentPage.value-1)*20))-index}",
-                                  width: 60,
+                                  itemCount:
+                                      cashOutController.cashOutDataList.length,
+                                  separatorBuilder: (context, index) => Divider(
+                                      height: 20,
+                                      color: context.theme.colorScheme.onSurface
+                                          .withOpacity(0.15)),
+                                  itemBuilder: (context, index) => Row(
+                                    mainAxisAlignment: Get.width <= 500
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextComponent(
+                                        text:
+                                            "${(cashOutController.totalCount.value - ((cashOutController.currentPage.value - 1) * 20)) - index}",
+                                        width: 60,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextComponent(
+                                        text: cashOutController
+                                                .cashOutDataList[index]
+                                                .firstName ??
+                                            "",
+                                        width: 100,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextComponent(
+                                        text: cashOutController
+                                                .cashOutDataList[index]
+                                                .telegramId ??
+                                            "",
+                                        width: 100,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextButtonComponent(
+                                        text: cashOutController
+                                            .cashOutDataList[index]
+                                            .referralCount
+                                            .toString(),
+                                        width: 80,
+                                        onClick: () =>
+                                            cashOutController.onReferralClick(
+                                                cashOutController
+                                                        .cashOutDataList[index]
+                                                        .userId ??
+                                                    "",
+                                                cashOutController
+                                                        .cashOutDataList[index]
+                                                        .referralCount ??
+                                                    0),
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextComponent(
+                                        text: cashOutController
+                                                .cashOutDataList[index]
+                                                .accountHolderName ??
+                                            "--",
+                                        width: 200,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextComponent(
+                                        text: cashOutController
+                                                .cashOutDataList[index]
+                                                .phoneNumber ??
+                                            "--",
+                                        width: 100,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextComponent(
+                                        text: cashOutController
+                                                .cashOutDataList[index].upiId ??
+                                            "--",
+                                        width: 250,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextComponent(
+                                        text:
+                                            "₹ ${cashOutController.cashOutDataList[index].amount} (${cashOutController.cashOutDataList[index].cashOutType == "spin" ? "S" : cashOutController.cashOutDataList[index].cashOutType == "cash" ? "C" : ""})",
+                                        width: 80,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      TextButtonComponent(
+                                        text: cashOutController
+                                                    .cashOutDataList[index]
+                                                    .status ==
+                                                1
+                                            ? "Pending"
+                                            : cashOutController
+                                                        .cashOutDataList[index]
+                                                        .status ==
+                                                    2
+                                                ? "Success"
+                                                : cashOutController
+                                                            .cashOutDataList[
+                                                                index]
+                                                            .status ==
+                                                        3
+                                                    ? "Rejected"
+                                                    : "",
+                                        width: 90,
+                                        onClick: () => cashOutController
+                                            .onStatusClick(cashOutController
+                                                    .cashOutDataList[index]
+                                                    .id ??
+                                                ""),
+                                        isSuccess: cashOutController
+                                                .cashOutDataList[index]
+                                                .status ==
+                                            2,
+                                        isRejected: cashOutController
+                                                .cashOutDataList[index]
+                                                .status ==
+                                            3,
+                                        isPending: cashOutController
+                                                .cashOutDataList[index]
+                                                .status ==
+                                            1,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(width: 20),
-                                TextComponent(
-                                  text: cashOutController
-                                      .cashOutDataList[index].firstName ??
-                                      "",
-                                  width: 100,
-                                ),
-                                const SizedBox(width: 20),
-                                TextComponent(
-                                  text: cashOutController
-                                      .cashOutDataList[index].telegramId ??
-                                      "",
-                                  width: 100,
-                                ),
-                                const SizedBox(width: 20),
-                                TextButtonComponent(
-                                  text: cashOutController.cashOutDataList[index].referralCount.toString(),
-                                  width: 80,
-                                  onClick: () => cashOutController.onReferralClick(cashOutController.cashOutDataList[index].userId ?? "", cashOutController.cashOutDataList[index].referralCount ?? 0),
-                                ),
-                                const SizedBox(width: 20),
-                                TextComponent(
-                                  text: cashOutController.cashOutDataList[index].accountHolderName ?? "--",
-                                  width: 200,
-                                ),
-                                const SizedBox(width: 20),
-                                TextComponent(
-                                  text: cashOutController.cashOutDataList[index].phoneNumber ?? "--",
-                                  width: 100,
-                                ),
-                                const SizedBox(width: 20),
-                                TextComponent(
-                                  text: cashOutController.cashOutDataList[index].upiId ?? "--",
-                                  width: 250,
-                                ),
-                                const SizedBox(width: 20),
-                                TextComponent(
-                                  text: "₹ ${cashOutController.cashOutDataList[index].amount} (${cashOutController.cashOutDataList[index].cashOutType=="spin" ? "S" : cashOutController.cashOutDataList[index].cashOutType=="cash" ? "C" : ""})",
-                                  width: 80,
-                                ),
-                                const SizedBox(width: 20),
-                                TextButtonComponent(
-                                  text: cashOutController.cashOutDataList[index].status ==
-                                      1
-                                      ? "Pending"
-                                      : cashOutController.cashOutDataList[index].status ==
-                                      2
-                                      ? "Success"
-                                      : cashOutController
-                                      .cashOutDataList[index].status ==
-                                      3
-                                      ? "Rejected"
-                                      : "",
-                                  width: 90,
-                                  onClick: () => cashOutController.onStatusClick(
-                                      cashOutController.cashOutDataList[index].id ?? ""),
-                                  isSuccess: cashOutController.cashOutDataList[index].status ==
-                                      2,
-                                  isRejected: cashOutController
-                                      .cashOutDataList[index].status ==
-                                      3,
-                                  isPending: cashOutController.cashOutDataList[index].status == 1,
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                       ),
                     ],
@@ -215,8 +279,9 @@ class CashOutView extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Obx(
-                  ()=> WebPagination(
-                  onPageChanged: (value) => cashOutController.onPageChanged(value),
+                () => WebPagination(
+                  onPageChanged: (value) =>
+                      cashOutController.onPageChanged(value),
                   currentPage: cashOutController.currentPage.value,
                   totalPage: cashOutController.totalPages.value,
                 ),
@@ -234,7 +299,10 @@ class TextButtonComponent extends StatelessWidget {
     super.key,
     required this.text,
     this.width = 160,
-    required this.onClick, this.isSuccess=false, this.isRejected=false, this.isPending=false,
+    required this.onClick,
+    this.isSuccess = false,
+    this.isRejected = false,
+    this.isPending = false,
   });
 
   final String text;
@@ -260,19 +328,27 @@ class TextButtonComponent extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(100)),
           gradient: LinearGradient(
-            colors: isSuccess ? [
-              Colors.green,
-              Colors.green,
-            ] : isRejected ? [
-              Colors.red,
-              Colors.red,
-            ] : isPending ? [
-              Colors.white.withOpacity(0.5),
-              Colors.white.withOpacity(0.5),
-            ] : [
-              context.theme.colorScheme.surfaceContainerLow.withOpacity(0.5),
-              context.theme.colorScheme.surfaceContainerHigh.withOpacity(0.5),
-            ],
+            colors: isSuccess
+                ? [
+                    Colors.green,
+                    Colors.green,
+                  ]
+                : isRejected
+                    ? [
+                        Colors.red,
+                        Colors.red,
+                      ]
+                    : isPending
+                        ? [
+                            Colors.white.withOpacity(0.5),
+                            Colors.white.withOpacity(0.5),
+                          ]
+                        : [
+                            context.theme.colorScheme.surfaceContainerLow
+                                .withOpacity(0.5),
+                            context.theme.colorScheme.surfaceContainerHigh
+                                .withOpacity(0.5),
+                          ],
           ),
         ),
         child: Text(

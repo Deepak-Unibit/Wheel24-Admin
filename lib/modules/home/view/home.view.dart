@@ -48,6 +48,22 @@ class HomeView extends StatelessWidget {
                 color: context.theme.colorScheme.onSurface,
               ),
             ),
+            actions: [
+              MaterialButton(
+                onPressed: () => homeController.onRefresh(),
+                minWidth: 0,
+                padding: EdgeInsets.zero,
+                visualDensity: VisualDensity.compact,
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                child: Icon(
+                  Icons.refresh,
+                  size: 24,
+                  color: context.theme.colorScheme.onSurface,
+                ),
+              ),
+              const SizedBox(width: 20),
+            ],
           );
         }),
       ),
