@@ -79,6 +79,7 @@ class CashOutData {
       String? userId, 
       num? status, 
       num? amount, 
+      String? cashOutType, 
       String? telegramId, 
       String? firstName, 
       num? referralCount, 
@@ -89,6 +90,7 @@ class CashOutData {
     _userId = userId;
     _status = status;
     _amount = amount;
+    _cashOutType = cashOutType;
     _telegramId = telegramId;
     _firstName = firstName;
     _referralCount = referralCount;
@@ -102,6 +104,7 @@ class CashOutData {
     _userId = json['userId'];
     _status = json['status'];
     _amount = json['amount'];
+    _cashOutType = json['cashOutType'];
     _telegramId = json['telegramId'];
     _firstName = json['firstName'];
     _referralCount = json['referralCount'];
@@ -113,6 +116,7 @@ class CashOutData {
   String? _userId;
   num? _status;
   num? _amount;
+  String? _cashOutType;
   String? _telegramId;
   String? _firstName;
   num? _referralCount;
@@ -124,6 +128,7 @@ class CashOutData {
   String? get userId => _userId;
   num? get status => _status;
   num? get amount => _amount;
+  String? get cashOutType => _cashOutType;
   String? get telegramId => _telegramId;
   String? get firstName => _firstName;
   num? get referralCount => _referralCount;
@@ -137,6 +142,7 @@ class CashOutData {
     map['userId'] = _userId;
     map['status'] = _status;
     map['amount'] = _amount;
+    map['cashOutType'] = _cashOutType;
     map['telegramId'] = _telegramId;
     map['firstName'] = _firstName;
     map['referralCount'] = _referralCount;

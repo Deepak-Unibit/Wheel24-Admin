@@ -175,7 +175,7 @@ class CashOutView extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 20),
                                 TextComponent(
-                                  text: "₹ ${cashOutController.cashOutDataList[index].amount}",
+                                  text: "₹ ${cashOutController.cashOutDataList[index].amount} (${cashOutController.cashOutDataList[index].cashOutType=="spin" ? "S" : cashOutController.cashOutDataList[index].cashOutType=="cash" ? "C" : ""})",
                                   width: 80,
                                 ),
                                 const SizedBox(width: 20),
