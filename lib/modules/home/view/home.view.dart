@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:wheel24_admin/components/primaryButton.component.dart';
 import 'package:wheel24_admin/helper/date.helper.dart';
 import 'package:wheel24_admin/modules/home/controller/home.controller.dart';
+import '../../../components/drawer/drawer.component.dart';
 import '../../../components/text.component.dart';
 import '../../../components/textField.component.dart';
 
@@ -15,121 +16,40 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: homeController.scaffoldStateKey,
       backgroundColor: context.theme.colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor:
-            context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
-        centerTitle: true,
-        title: Text(
-          "Users List",
-          style: TextStyle(
-            color: context.theme.colorScheme.onSurface,
-          ),
-        ),
-        actions: [
-          MaterialButton(
-            onPressed: () => homeController.onCashOutClick(),
-            minWidth: 0,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            visualDensity: VisualDensity.compact,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            color: context.theme.colorScheme.surface.withOpacity(0.25),
-            shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                side: BorderSide(
-                  color: context.theme.colorScheme.surfaceContainerLow,
-                  width: 2,
-                ),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.account_balance_wallet_outlined,
-                  size: 18,
-                  color: context.theme.colorScheme.onSurface,
-                ),
-                const SizedBox(width: 2),
-                Text(
-                  "Cash Out",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: context.theme.colorScheme.onSurface,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 10),
-          MaterialButton(
-            onPressed: () => homeController.onRanksClick(),
-            minWidth: 0,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            visualDensity: VisualDensity.compact,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            color: context.theme.colorScheme.surface.withOpacity(0.25),
-            shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                side: BorderSide(
-                  color: context.theme.colorScheme.surfaceContainerLow,
-                  width: 2,
-                ),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.leaderboard_outlined,
-                  size: 18,
-                  color: context.theme.colorScheme.onSurface,
-                ),
-                const SizedBox(width: 2),
-                Text(
-                  "Ranks",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: context.theme.colorScheme.onSurface,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            "Restrict IP",
-            style: TextStyle(
-              color: context.theme.colorScheme.onSurface,
-            ),
-          ),
-          const SizedBox(width: 2),
-          SizedBox(
-            height: 30,
-            width: 45,
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: Obx(
-                () => Switch(
-                  value: homeController.isIPRestrict.value,
-                  onChanged: (bool value) =>
-                      homeController.onIPRestrictChange(value),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  splashRadius: 0,
-                  focusColor: Colors.transparent,
-                  trackOutlineColor: WidgetStatePropertyAll(
-                      context.theme.colorScheme.onSurface.withOpacity(0.5)),
-                  trackOutlineWidth: const WidgetStatePropertyAll(1),
-                  thumbColor: WidgetStatePropertyAll(
-                      context.theme.colorScheme.onSurface),
-                ),
+      drawer: DrawerComponent(scaffoldKey: homeController.scaffoldStateKey),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Builder(builder: (context) {
+          return AppBar(
+            backgroundColor:
+                context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
+            centerTitle: true,
+            title: Text(
+              "Users List",
+              style: TextStyle(
+                color: context.theme.colorScheme.onSurface,
               ),
             ),
-          ),
-          const SizedBox(width: 20),
-        ],
+            leading: MaterialButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              minWidth: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              visualDensity: VisualDensity.compact,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              child: Icon(
+                Icons.menu_outlined,
+                size: 28,
+                color: context.theme.colorScheme.onSurface,
+              ),
+            ),
+          );
+        }),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -169,7 +89,9 @@ class HomeView extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: Get.width <= 500
+                            ? MainAxisAlignment.start
+                            : MainAxisAlignment.spaceBetween,
                         children: const [
                           TextComponent(
                             text: "Sl. No.",
@@ -229,10 +151,13 @@ class HomeView extends StatelessWidget {
                                         .withOpacity(0.15),
                                   ),
                                   itemBuilder: (context, index) => Row(
-                                   mainAxisAlignment: Get.width <= 500 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: Get.width <= 500
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.spaceBetween,
                                     children: [
                                       TextComponent(
-                                        text: "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
+                                        text:
+                                            "${(homeController.totalCount.value - ((homeController.currentPage.value - 1) * 20)) - index}",
                                         width: 60,
                                       ),
                                       const SizedBox(width: 20),
@@ -258,7 +183,8 @@ class HomeView extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 20),
                                       TextComponent(
-                                        text: "₹ ${((homeController.userDataList[index].earnedAmount ?? 0.0) * 100).truncate() / 100}",
+                                        text:
+                                            "₹ ${((homeController.userDataList[index].earnedAmount ?? 0.0) * 100).truncate() / 100}",
                                         width: 120,
                                       ),
                                       const SizedBox(width: 20),
@@ -270,7 +196,12 @@ class HomeView extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 20),
                                       TextComponent(
-                                        text: DateHelper().dateFormatNull(date: homeController.userDataList[index].createdAt ??"", format: "dd-MM-yyyy hh:mm:ss a"),
+                                        text: DateHelper().dateFormatNull(
+                                            date: homeController
+                                                    .userDataList[index]
+                                                    .createdAt ??
+                                                "",
+                                            format: "dd-MM-yyyy hh:mm:ss a"),
                                         width: 190,
                                       ),
                                     ],

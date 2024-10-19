@@ -10,7 +10,7 @@ class SnackBarHelper {
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.white.withOpacity(0.1),
       colorText: Colors.white,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 1500),
         titleText: const SizedBox.shrink(),
         messageText: Text(
           message ?? "Something went wrong",
