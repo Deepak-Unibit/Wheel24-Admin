@@ -15,7 +15,7 @@ class RanksView extends StatelessWidget {
         backgroundColor: context.theme.colorScheme.surfaceContainerLow.withOpacity(0.1),
         centerTitle: true,
         title: Text(
-          "Leaderboard",
+          "Ranks",
           style: TextStyle(
             color: context.theme.colorScheme.onSurface,
           ),

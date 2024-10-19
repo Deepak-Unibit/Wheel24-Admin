@@ -41,6 +41,8 @@ class CashOutView extends StatelessWidget {
                     hintText: "Search with Telegram Id/Phone No.",
                     textInputType: TextInputType.text,
                     maxLength: 100,
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: cashOutController.onSearch,
                   ),
                 ),
                 const SizedBox(width: 10),

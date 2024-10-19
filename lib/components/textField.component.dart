@@ -17,6 +17,7 @@ class TextFieldComponent extends StatelessWidget {
     this.contentPadding = 15,
     this.borderColor,
     this.textInputAction,
+    required this.onSubmitted,
   });
 
   final TextEditingController textEditingController;
@@ -32,6 +33,7 @@ class TextFieldComponent extends StatelessWidget {
   final double contentPadding;
   final Color? borderColor;
   final TextInputAction? textInputAction;
+  final Function onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,9 @@ class TextFieldComponent extends StatelessWidget {
       maxLength: maxLength,
       keyboardType: textInputType,
       textInputAction: textInputAction,
+      onSubmitted: (value) {
+        onSubmitted();
+      },
       style: TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,
