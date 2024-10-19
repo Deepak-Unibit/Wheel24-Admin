@@ -68,10 +68,6 @@ class CashOutController extends GetxController {
   }
 
   onReferralClick(String id, num count) async {
-    if(count<=0) {
-      SnackBarHelper.show("No Referrals");
-      return;
-    }
 
     if (id == "") {
       SnackBarHelper.show("Id Not Found");
@@ -81,9 +77,15 @@ class CashOutController extends GetxController {
     var resp = await ApiCall.get("${UrlApi.getReferrals}/$id?page=1&limit=20");
     LoadingPage.close();
 
+    print(resp);
+
     ReferralsModel referralsModel = ReferralsModel.fromJson(resp);
 
     if (referralsModel.responseCode == 200) {
+      if(referralsModel.data == null) {
+        SnackBarHelper.show(referralsModel.message);
+        return;
+      }
       Get.delete<ReferralsModel>();
       Get.put(referralsModel);
       RoutesUtil.to(() => ReferralsView(id: id));
